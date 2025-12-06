@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Dashboard</title>
+   <link rel="stylesheet" href="/dashboard.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+   <div id="header">
+
+      <a href="/admin/dashboard">
+         <i class="fa-solid fa-house"></i>
+         <h1>Admin-Pannel</h1>
+      </a>
+
+      <div id="part2">
+         <a href="/admin/about">About</a>
+         <a href="/admin/contact">Contact</a>
+         <a href="/admin/logout"><button>Logout</button></a>
+      </div>
+   </div>
+   <u>
+      <h1>Welcome Admin</h1>
+   </u>
+
+   <hr style="width: 90%">
+
+   <div id="main">
+      <div id="navigation">
+         <h2>Navigation</h2>
+         <a href="/admin/Departments/1"><button>Departments</button></a>
+         <a href="/admin/createDepartment"><button>Add Department</button></a>
+         <a href="/admin/allUsers/1"><button>Users</button></a>
+         <a href="/admin/createUser"><button>Add Users</button></a>
+      </div>
+      <div id="count">
+         <h2>Dashboard overview</h2>
+         <div id="count1">
+            <p>Total Departments: <%= data.departments %>
+            </p>
+            <p>Total Students: <%= data.students %></p>
+            <p>Total Professors: <%= data.professors %></p>
+            <p>Total HODs: <%= data.hods %></p>
+         </div>
+      </div>
+   </div>
+   <hr>
+   <% if (message) { %>
+      <div id="toast" style="
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 15px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+">
+         <%= message %>
+      </div>
+
+      <script>
+         setTimeout(() => {
+            document.getElementById('toast').style.display = "none";
+         }, 3000);
+      </script>
+      <% } %>
+
+</body>
+
+</html>

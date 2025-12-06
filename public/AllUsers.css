@@ -1,0 +1,238 @@
+/* Page base styling */
+body {
+   font-family: Arial, sans-serif;
+   margin: 20px;
+   background: #f7f7f7;
+}
+
+#header {
+   position: fixed;
+   top: 0;
+   left: 0;
+   display: flex;
+   justify-content: space-between;   /* Left and right aligned */
+   align-items: center;
+   padding: 15px 30px;
+   background: #f4f6ff;
+   border-bottom: 2px solid #ddd;
+   width: 100%;
+   box-sizing: border-box;
+}
+/* LEFT SIDE (logo + heading) */
+#header > a {
+   display: flex;
+   align-items: center;
+   gap: 12px;
+   text-decoration: none;
+}
+
+/* Home Icon */
+#header i {
+   font-size: 28px;
+   color: #4b3b8f;
+}
+
+/* Heading */
+#header h1 {
+   margin: 0;
+   font-size: 26px;
+   font-weight: 700;
+   color: #4b3b8f;
+}
+
+/* RIGHT SIDE LINKS */
+#part2 {
+   display: flex;
+   align-items: center;
+   gap: 20px;
+}
+
+/* About + Contact links */
+#part2 a {
+   text-decoration: none;
+   font-size: 16px;
+   color: #4b3b8f;
+   font-weight: 600;
+   transition: 0.3s;
+}
+
+/* Hover effect */
+#part2 a:hover {
+   color: #362d6d;
+}
+
+/* Logout Button */
+#part2 button {
+   padding: 8px 18px;
+   border: none;
+   background: crimson;
+   color: white;
+   border-radius: 6px;
+   cursor: pointer;
+   font-size: 15px;
+   transition: 0.3s;
+}
+
+#part2 button:hover {
+   background: darkred;
+}
+button {
+   padding: 10px 18px;
+   border: none;
+   background: #4b3b8f;  /* Updated */
+   color: white;
+   border-radius: 6px;
+   cursor: pointer;
+   transition: 0.25s;
+   font-size: 15px;
+   font-weight: 500;
+}
+
+button:hover {
+   background: #362d6d; /* Updated */
+   transform: translateY(-2px);
+}
+
+.pagination{
+   text-align: center;
+}
+
+h1{
+   text-align: center;
+   color: #4b3b8f;
+   margin-top: 20px;
+}
+
+
+/* Heading */
+h1 {
+   text-align: center;
+   color: #4b3b8f;
+   margin-bottom: 25px;
+}
+
+/* Search and Filter box */
+#filter-box {
+   display: flex;
+   align-items: center;
+   gap: 15px;
+   padding: 15px;
+   background: white;
+   border-radius: 8px;
+   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+   width: fit-content;
+   margin: 0 auto 20px auto;
+}
+
+#filter-box label {
+   font-weight: bold;
+}
+
+#filter-box input, #filter-box select {
+   padding: 8px 12px;
+   border: 1px solid #aaa;
+   border-radius: 6px;
+   outline: none;
+}
+
+#filter-box button {
+   padding: 8px 16px;
+   background: #4b3b8f;
+   border: none;
+   color: white;
+   border-radius: 6px;
+   cursor: pointer;
+   transition: 0.3s;
+}
+
+#filter-box button:hover {
+   background: #362d6d;
+}
+
+/* Table styling */
+table {
+   width: 100%;
+   border-collapse: collapse;
+   background: white;
+   border-radius: 10px;
+   overflow: hidden;
+   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+table th {
+   background: #4b3b8f;
+   color: white;
+   padding: 12px;
+   font-size: 16px;
+}
+
+table td {
+   padding: 10px;
+   border-bottom: 1px solid #ddd;
+   text-align: center;
+}
+
+table tr:hover {
+   background: #f0f0f0;
+}
+
+/* Buttons inside table */
+table button {
+   padding: 6px 12px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: 0.2s;
+}
+
+table a button {
+   background: #007bff;
+   color: white;
+}
+
+table a button:hover {
+   background: #005ec2;
+}
+
+table .delete-btn {
+   background: #d9534f;
+   color: white;
+}
+
+table .delete-btn:hover {
+   background: #b52b27;
+}
+
+/* Pagination buttons */
+.pagination {
+   margin-top: 20px;
+   display: flex;
+   justify-content: center;
+   gap: 15px;
+}
+
+.pagination button {
+   padding: 8px 20px;
+   background: #4b3b8f;
+   color: white;
+   border: none;
+   border-radius: 6px;
+   cursor: pointer;
+}
+
+.pagination button:hover {
+   background: #362d6d;
+}
+
+/* Toast message */
+#toast {
+   padding: 10px;
+   animation: fadeInOut 5s ease forwards;
+}
+
+@keyframes fadeInOut {
+   0% { opacity: 0; }
+   10% { opacity: 1; }
+   80% { opacity: 1; }
+   100% { opacity: 0; }
+}

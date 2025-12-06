@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Login</title>
+   <link rel="stylesheet" href="/login.css">
+</head>
+
+<body>
+   <form action="/common/login" method="POST">
+      <h2>Login to your account</h2>
+
+      <!-- Email -->
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" placeholder="Enter your email" required>
+
+      <!-- Password -->
+      <label for="password">Password</label>
+      <input id="password" type="password" name="password" placeholder="Enter your password" required>
+
+      <label for="role">Role</label>
+      <select id="role" name="role" required>
+         <option value="Admin">Admin</option>
+         <option value="User">User</option>
+      </select>
+
+      <!-- Error Message -->
+      <% if (error) { %>
+         <p class="error"><%= error %></p>
+      <% } %>
+
+      <!-- Success Message -->
+      <% if (message) { %>
+         <p class="success"><%= message %></p>
+      <% } %>
+
+      <!-- Submit -->
+      <input type="submit" value="Login">
+
+      <p>Don't have an account?</p>
+      <a href="/admin/signup">Sign Up</a>
+   </form>
+
+</body>
+
+</html>

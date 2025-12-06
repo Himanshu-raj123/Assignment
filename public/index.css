@@ -1,0 +1,42 @@
+/* Reset some default spacing */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Center the buttons container */
+div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 20px;
+}
+
+/* Button styling */
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background-color: #4CAF50;
+    color: white;
+    transition: 0.3s ease;
+}
+
+/* Hover effect */
+button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* Separate style for Signup button (optional) */
+a[href="/admin/signup"] button {
+    background-color: #2196F3;
+}
+
+a[href="/admin/signup"] button:hover {
+    background-color: #1e88e5;
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>User Creation</title>
+   <link rel="stylesheet" href="/createUser.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+   <div id="header">
+      <a href="/admin/dashboard">
+         <i class="fa-solid fa-house"></i>
+         <h1>Admin-Pannel</h1>
+      </a>
+
+      <div id="part2">
+         <a href="/admin/about">About</a>
+         <a href="/admin/contact">Contact</a>
+         <a href="/admin/logout"><button>Logout</button></a>
+      </div>
+   </div>
+   <u>
+      <h1>Create New User</h1>
+   </u>
+
+   <form action="/admin/createUser" method="POST">
+
+      <label for="userName">User Name:</label>
+      <input type="text" id="userName" name="Name" required>
+
+      <label for="email">Email :</label>
+      <input type="email" id="email" name="Email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="Password" required>
+
+      <label for="phone">Phone no.:</label>
+      <input type="number" id="phone" name="Phone" required>
+
+      <label for="department">Department:</label>
+      <select id="department" name="Department">
+         <option>--No Option-- </option>
+         <% departments.forEach(element=> { %>
+            <option value="<%= element._id %>">
+               <%= element.Name %>
+            </option>
+            <% }) %>
+      </select>
+
+      <label for="role">Role:</label>
+      <select id="role" name="Role">
+         <option>--No Option-- </option>
+         <option>Professor</option>
+         <option>Student</option>
+         <option>HOD</option>
+      </select>
+
+      <% if (error) { %>
+         <p style="color:red;">
+            <%= error %>
+         </p>
+         <% } %>
+
+            <% if (message) { %>
+               <p style="color:green;">
+                  <%= message %>
+               </p>
+               <% } %>
+
+                  <button type="submit">Create User</button>
+
+   </form>
+
+
+</body>
+
+</html>

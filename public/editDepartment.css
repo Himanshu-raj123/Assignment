@@ -1,0 +1,128 @@
+/* Global Reset */
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+   background-color: #f4f3fb;
+   color: #333;
+   padding: 20px;
+}
+
+/* Header */
+#header {
+   position: fixed;
+   top: 0;
+   left: 0;
+   display: flex;
+   justify-content: space-between;  
+   align-items: center;
+   padding: 15px 30px;
+   background: #f4f6ff;
+   border-bottom: 2px solid #ddd;
+   width: 100%;
+   box-sizing: border-box;
+}
+
+#header a {
+   text-decoration: none;
+   color: white;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+#header h1 {
+   font-size: 22px;
+}
+
+#header i {
+   font-size: 22px;
+}
+
+#part2{
+   display: flex;
+   align-items: center;
+   gap: 15px;
+}
+
+#part2 a {
+   margin-left: 20px;
+   color: white;
+   font-weight: bold;
+   text-decoration: none;
+}
+
+#part2 button {
+   padding: 6px 15px;
+   background-color: rgb(214, 16, 16);
+   color: white;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+#part2 button:hover {
+   background-color: #ddd;
+}
+
+/* Underlined Title */
+u h1 {
+   text-align: center;
+   color: #4b3b8f;
+   margin-bottom: 25px;
+   font-size: 28px;
+}
+
+/* Form Styling */
+form {
+   width: 55%;
+   margin: auto;
+   background: white;
+   padding: 30px;
+   border-radius: 10px;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+   border-top: 6px solid #4b3b8f;
+}
+
+label {
+   font-size: 16px;
+   color: #4b3b8f;
+   font-weight: bold;
+}
+
+input[type="text"] {
+   width: 100%;
+   padding: 10px;
+   margin: 8px 0 20px 0;
+   border-radius: 6px;
+   border: 1px solid #bdb7d8;
+   outline: none;
+   transition: 0.3s;
+}
+
+input[type="text"]:focus {
+   border-color: #4b3b8f;
+   box-shadow: 0 0 4px #4b3b8f;
+}
+
+/* Submit Button */
+button[type="submit"] {
+   width: 100%;
+   padding: 12px;
+   background-color: #4b3b8f;
+   color: white;
+   border: none;
+   border-radius: 6px;
+   font-size: 16px;
+   font-weight: bold;
+   cursor: pointer;
+   transition: 0.3s;
+}
+
+button[type="submit"]:hover {
+   background-color: #3d2f75;
+}

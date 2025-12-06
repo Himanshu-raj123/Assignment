@@ -1,0 +1,338 @@
+/* -------------------------
+   GLOBAL STYLES
+-------------------------- */
+body {
+   margin: 0;
+   padding: 0;
+   font-family: "Poppins", sans-serif;
+   background: #f4f6ff;
+   color: #333;
+}
+
+#header {
+   position: fixed;
+   top: 0;
+   left: 0;
+   display: flex;
+   justify-content: space-between;   /* Left and right aligned */
+   align-items: center;
+   padding: 15px 30px;
+   background: #f4f6ff;
+   border-bottom: 2px solid #ddd;
+   width: 100%;
+   box-sizing: border-box;
+}
+
+/* LEFT SIDE (logo + heading) */
+#header > a {
+   display: flex;
+   align-items: center;
+   gap: 12px;
+   text-decoration: none;
+}
+
+/* Home Icon */
+#header i {
+   font-size: 28px;
+   color: #4b3b8f;
+}
+
+/* Heading */
+#header h1 {
+   margin: 0;
+   font-size: 26px;
+   font-weight: 700;
+   color: #4b3b8f;
+}
+
+/* RIGHT SIDE LINKS */
+#part2 {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 20px;
+}
+
+/* About + Contact links */
+#part2 a {
+   text-decoration: none;
+   font-size: 16px;
+   color: #4b3b8f;
+   font-weight: 600;
+   transition: 0.3s;
+}
+
+/* Hover effect */
+#part2 a:hover {
+   color: #362d6d;
+}
+
+/* Logout Button */
+#part2 button {
+   padding: 8px 18px;
+   border: none;
+   background: crimson;
+   color: white;
+   border-radius: 6px;
+   cursor: pointer;
+   font-size: 15px;
+   transition: 0.3s;
+}
+
+#part2 button:hover {
+   background: darkred;
+}
+
+h1{
+   text-align: center;
+   color: #4b3b8f;
+   margin-top: 20px;
+}
+
+
+h1 {
+   text-align: center;
+   margin-top: 20px;
+   color: #4b3b8f;   /* Updated */
+   font-size: 32px;
+}
+
+#filter {
+   width: 90%;
+   margin: 20px auto;
+   padding: 20px;
+   background: #ffffff;
+   border-radius: 10px;
+   box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 15px;
+   flex-wrap: wrap;
+}
+
+/* LABELS */
+#filter label {
+   font-size: 16px;
+   font-weight: 600;
+   color: #4b3b8f;   /* Updated */
+}
+
+/* INPUT + SELECT STYLE */
+#filter input,
+#filter select {
+   padding: 10px;
+   border: 1px solid #bbb;
+   border-radius: 6px;
+   outline: none;
+   min-width: 180px;
+   font-size: 15px;
+}
+
+#filter input:focus,
+#filter select:focus {
+   border-color: #4b3b8f; /* Updated */
+   box-shadow: 0px 0px 5px rgba(75, 59, 143, 0.5);
+}
+
+/* BUTTON STYLE */
+#filter button {
+   padding: 10px 18px;
+   background: #4b3b8f; /* Updated */
+   color: white;
+   border: none;
+   border-radius: 6px;
+   cursor: pointer;
+   font-size: 15px;
+   font-weight: bold;
+   transition: 0.3s;
+}
+
+#filter button:hover {
+   background: #362d6d; /* Updated */
+   transform: translateY(-2px);
+}
+
+/* -------------------------
+   SEARCH FORM (page-specific)
+   Targets the search form on the Departments page and makes it
+   responsive and visually consistent with the site theme.
+------------------------- */
+#searchForm {
+   width: 90%;
+   max-width: 1100px;
+   margin: 18px auto;
+   padding: 14px 16px;
+   background: #ffffff;
+   border-radius: 10px;
+   box-shadow: 0 6px 18px rgba(75,59,143,0.06);
+   display: flex;
+   align-items: center;
+   gap: 12px;
+   flex-wrap: wrap;
+}
+
+form[action^="/admin/Departments"] label {
+   font-size: 15px;
+   font-weight: 600;
+   color: #4b3b8f;
+   margin-left: 6px;
+}
+
+form[action^="/admin/Departments"] input#search {
+   flex: 1 1 260px;
+   min-width: 150px;
+   padding: 10px 12px;
+   border: 1px solid #cfcfcf;
+   border-radius: 8px;
+   font-size: 15px;
+   outline: none;
+}
+
+form[action^="/admin/Departments"] input#search:focus {
+   border-color: #4b3b8f;
+   box-shadow: 0 0 6px rgba(75,59,143,0.14);
+}
+
+form[action^="/admin/Departments"] select#filterSelect {
+   padding: 10px 12px;
+   border: 1px solid #cfcfcf;
+   border-radius: 8px;
+   font-size: 15px;
+   min-width: 160px;
+   background: white;
+}
+
+form[action^="/admin/Departments"] button[type="submit"] {
+   padding: 10px 16px;
+   border-radius: 8px;
+   background: #4b3b8f;
+   color: #fff;
+   border: none;
+   cursor: pointer;
+   font-weight: 700;
+   box-shadow: 0 3px 10px rgba(75,59,143,0.12);
+}
+
+form[action^="/admin/Departments"] button[type="submit"]:hover {
+   background: #362d6d;
+   transform: translateY(-2px);
+}
+
+/* Stack the form controls on small screens */
+@media (max-width: 600px) {
+   form[action^="/admin/Departments"] {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 12px;
+   }
+
+   form[action^="/admin/Departments"] label {
+      margin-left: 0;
+      margin-bottom: 6px;
+   }
+
+   form[action^="/admin/Departments"] input#search,
+   form[action^="/admin/Departments"] select#filterSelect,
+   form[action^="/admin/Departments"] button[type="submit"] {
+      width: 100%;
+      box-sizing: border-box;
+   }
+}
+
+/* Global Buttons */
+button {
+   padding: 10px 18px;
+   border: none;
+   background: #4b3b8f;  /* Updated */
+   color: white;
+   border-radius: 6px;
+   cursor: pointer;
+   transition: 0.25s;
+   font-size: 15px;
+   font-weight: 500;
+}
+
+button:hover {
+   background: #362d6d; /* Updated */
+   transform: translateY(-2px);
+}
+
+/* -------------------------
+   TABLE STYLING
+-------------------------- */
+table {
+   width: 90%;
+   margin: 20px auto;
+   border-collapse: collapse;
+   background: white;
+   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+   border-radius: 10px;
+   overflow: hidden;
+}
+
+th {
+   background: #4b3b8f; /* Updated */
+   color: white;
+   padding: 12px;
+   font-size: 16px;
+}
+
+td {
+   text-align: center;
+   padding: 12px;
+   font-size: 15px;
+   border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+   background: #f7f9ff;
+}
+
+tr:hover {
+   background: #ece9fa; /* subtle purple tint */
+}
+
+/* Action Buttons */
+td button {
+   margin: 3px;
+}
+
+/* -------------------------
+   PAGINATION BUTTONS
+-------------------------- */
+.pagination {
+   text-align: center;
+   margin-bottom: 20px;
+}
+
+.pagination button {
+   padding: 8px 15px;
+   margin: 0 10px;
+   background: #4b3b8f; /* Updated */
+}
+
+.pagination button:hover {
+   background: #362d6d; /* Updated */
+}
+
+/* -------------------------
+   TOAST MESSAGE
+-------------------------- */
+#toast {
+   position: fixed;
+   top: 20px;
+   right: 20px;
+   background: #4b3b8f; /* Updated */
+   color: white;
+   padding: 14px 22px;
+   border-radius: 8px;
+   font-size: 16px;
+   box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+   animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+   from { opacity: 0; transform: translateY(-10px); }
+   to { opacity: 1; transform: translateY(0); }
+}
