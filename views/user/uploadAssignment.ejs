@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Upload Assignment</title>
+   <link rel="stylesheet" href="/uploadAssinment.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   
+</head>
+
+<body>
+      <div id="header">
+
+      <a href="/user/dashboard">
+         <i class="fa-solid fa-house"></i>
+         <h1>User-Pannel</h1>
+      </a>
+
+      <div id="part2">
+         <a href="/user/about">About</a>
+         <a href="/user/contact">Contact</a>
+         <a href="/admin/logout"><button>Logout</button></a>
+      </div>
+   </div>
+
+   <form class="upload-form" action="/user/uploadAssignment" method="post" enctype="multipart/form-data">
+      <h1>Upload Assignment</h1>
+
+      <label>Title</label>
+      <input type="text" name="title" required>
+
+      <label>Description</label>
+      <textarea name="description" rows="5" required></textarea>
+
+      <label>File</label>
+      <input type="file" name="assignmentFile" required title="File must be below 10MB">
+
+      <label>Category</label>
+      <select name="category" required>
+         <option value="">-- Select Category --</option>
+         <option value="Assignment">Assignment</option>
+         <option value="Thesis">Thesis</option>
+         <option value="Report">Report</option>
+      </select>
+      <button type="submit">Upload</button>
+   </form>
+</body>
+<% if (message || error) { %>
+   <div id="toast" style="
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 15px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+">
+      <%= message %>
+   </div>
+
+   <script>
+      setTimeout(() => {
+         document.getElementById('toast').style.display = "none";
+      }, 3000);
+   </script>
+   <% } %>
+
+</html>

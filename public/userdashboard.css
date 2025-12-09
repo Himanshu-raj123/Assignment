@@ -1,7 +1,8 @@
 body {
    margin: 0;
    padding: 0;
-   font-family: Arial, sans-serif;
+   font-family: Arial,
+      sans-serif;
    padding-top: 90px;
    background: #f3f5fa;
 }
@@ -11,7 +12,7 @@ body {
    top: 0;
    left: 0;
    display: flex;
-   justify-content: space-between;  
+   justify-content: space-between;
    align-items: center;
    padding: 15px 30px;
    background: #f4f6ff;
@@ -21,7 +22,7 @@ body {
 }
 
 /* LEFT SIDE (logo + heading) */
-#header > a {
+#header>a {
    display: flex;
    align-items: center;
    gap: 12px;
@@ -79,7 +80,7 @@ body {
    background: darkred;
 }
 
-h1{
+h1 {
    text-align: center;
    color: #4b3b8f;
    margin-top: 20px;
@@ -112,7 +113,7 @@ h1{
    padding: 12px;
    margin-bottom: 12px;
    border: none;
-   background: #443588;
+   background: #656272;
    color: white;
    border-radius: 6px;
    font-size: 15px;
@@ -127,10 +128,10 @@ h1{
 /* Dashboard Count Section */
 #count {
    flex: 1;
-   background: #ffffff;
+   background: rgb(194, 191, 191);
    padding: 25px;
-   border-radius: 12px;
-   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+   border-radius: 10px;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 #count h2 {
@@ -141,10 +142,10 @@ h1{
 /* ===== COUNT GRID ===== */
 #count1 {
    display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
    gap: 20px;
+   margin-bottom: 30px;
 }
-
 
 /* Each status card */
 #count1 div {
@@ -167,35 +168,44 @@ h1{
 
 /* Label text */
 #count1 p {
-   background: linear-gradient(135deg, #b7b7f5, #d1d1ff);
-   padding: 22px;
-   border-radius: 14px;
-   text-align: center;
-   font-size: 17px;
+   margin: 0;
+   font-size: 15px;
    font-weight: 600;
-   color: #2c2c2c;
-   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-   transition: transform 0.25s ease, box-shadow 0.25s ease;
+   color: #333;
+   text-transform: uppercase;
+   letter-spacing: 0.5px;
 }
 
-/* Hover animation */
-#count1 p:hover {
-   transform: translateY(-5px);
-   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.15);
+/* Number */
+#count1 span {
+   margin-top: 8px;
+   font-size: 32px;
+   font-weight: 700;
+   color: hsl(0, 0%, 7%);
 }
 
-#count1 p span,
-#count1 p b {
-   display: block;
-   font-size: 34px;
-   color: #362d6d;
-   margin-top: 6px;
+/* STATUS COLORS */
+#draft {
+   background: linear-gradient(135deg, #b7b7f5, #d1d1ff);
 }
+
+#submitted {
+   background: linear-gradient(135deg, #b5e3b5, #d8f3d8);
+}
+
+#accepted {
+   background: linear-gradient(135deg, #dbdb8e, #f1f1bd);
+}
+
+#rejected {
+   background: linear-gradient(135deg, #db9190, #f2b0ae);
+}
+
 /* ===== COUNT 2 SECTION ===== */
 #count2 {
    display: flex;
    justify-content: space-between;
-   align-items:center;
+   align-items: center;
    margin-top: 20px;
    padding: 5px 15px;
 }
@@ -204,7 +214,7 @@ h1{
 #count2 h3 {
    margin: 0;
    font-size: 20px;
-   color:black;
+   color: black;
 }
 
 /* Button */
@@ -237,18 +247,10 @@ h1{
    }
 }
 
-#count3{
+#count3 {
    max-width: 98%;
    margin-top: 10px;
-}
-#count3 div{
-   min-height: 35px;
-   padding: 8px 12px;
-   border: 1px solid rgb(204, 125, 125);
-   border-radius: 6px;
-   background: #77c8c4;
-   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-   
+   text-align: center;
 }
 
 /* Logout Button */
@@ -303,4 +305,86 @@ a button:hover {
    #navigation {
       width: 100%;
    }
+}
+
+/* dynamic divs */
+#count3 {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* EACH ASSIGNMENT ROW */
+.assignment-row {
+   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: #2b5353;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.assignment-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* TITLE */
+.assignment-title {
+  font-size: 16px;
+  font-weight: 600;
+  color:white;
+}
+
+/* STATUS BADGE */
+.assignment-status {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  background: #c0d3e1;     /* default */
+  color: #152537;
+  border-radius: 4px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* STATUS COLORS (optional but 🔥) */
+/* .assignment-status.approved {
+  background: #e6f4ea;
+  color: #2e7d32;
+} */
+
+.assignment-status.pending,
+.assignment-status.draft {
+  background: #fff4e5;
+  color: #ef6c00;
+}
+
+.assignment-status.rejected {
+  background: #fdecea;
+  color: #c62828;
+}
+
+/* EMPTY MESSAGE */
+.empty-msg {
+  padding: 16px;
+  text-align: center;
+  color: #777;
+  font-size: 15px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px dashed #ccc;
+}
+
+/* MOBILE */
+@media (max-width: 520px) {
+  .assignment-row {
+    padding: 14px;
+  }
+
+  .assignment-title {
+    font-size: 15px;
+  }
 }

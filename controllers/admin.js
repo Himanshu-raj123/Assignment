@@ -59,32 +59,32 @@ async function handleLogout(req, res) {
    res.redirect("/common/login");
 }
 async function getDashboard(req, res) {
-   res.render('admin-dashboard', {
+   res.render('admin/admindashboard', {
       error: "",
       message: "Welcome to Admin Dashboard",
       data: await AdminDashboardStatsCount(),
    })
 }
 async function getCreateDepartment(req, res) {
-   res.render('createDepartment', { error: "", message: "" })
+   res.render('admin/createDepartment', { error: "", message: "" })
 }
 async function handleCreateDepartment(req, res) {
    const { Name, Type, Address } = req.body;
 
    if (!Name || !Type || !Address) {
-      return res.render('createDepartment', { error: "All fields are required", message: "" });
+      return res.render('admin/createDepartment', { error: "All fields are required", message: "" });
    }
 
    const existDepartment = await departments.findOne({ Name: Name });
    if (existDepartment) {
-      return res.render('createDepartment', { error: "Department with this name already exists", message: "" })
+      return res.render('admin/createDepartment', { error: "Department with this name already exists", message: "" })
    }
 
    try {
       await departments.create({ Name, Type, Address })
-      return res.render('admin-dashboard', { error: "", message: "Department created successfully", data: await AdminDashboardStatsCount() });
+      return res.render('admin/admindashboard', { error: "", message: "Department created successfully", data: await AdminDashboardStatsCount() });
    } catch (err) {
-      return res.render('createDepartment', { error: "Server Error", message: "Please Try Again" });
+      return res.render('admin/createDepartment', { error: "Server Error", message: "Please Try Again" });
    }
 }
 async function editDepartment(req, res) {
@@ -92,11 +92,11 @@ async function editDepartment(req, res) {
       const deptId = req.params.id;
       const dept = await departments.findById(deptId);
       if (!dept) {
-         return res.render('AllDepartment', { departments: [], error: "Department Not Found", message: "", curr: 1 })
+         return res.render('admin/AllDepartment', { departments: [], error: "Department Not Found", message: "", curr: 1 })
       }
-      res.render('editDepartment', { department: dept, error: "", message: "" });
+      res.render('admin/editDepartment', { department: dept, error: "", message: "" });
    } catch (err) {
-      res.render('AllDepartment', { departments: [], error: "Server Error", message: "", curr: 1 })
+      res.render('admin/AllDepartment', { departments: [], error: "Server Error", message: "", curr: 1 })
    }
 }
 async function updateDepartment(req, res) {
@@ -105,13 +105,13 @@ async function updateDepartment(req, res) {
       const { Name, Type, Address } = req.body;
       if (!Name || !Type || !Address) {
          const dept = await departments.findById(deptId);
-         return res.render('editDepartment', { department: dept, error: "All fields are required", message: "" });
+         return res.render('admin/editDepartment', { department: dept, error: "All fields are required", message: "" });
       }
       await departments.findByIdAndUpdate(deptId, { Name, Type, Address });
       res.redirect('/admin/Departments/1');
    } catch (err) {
       const dept = await departments.findById(req.params.id);
-      res.render('editDepartment', { department: dept, error: "Server Error", message: "Please Try Again" });
+      res.render('admin/editDepartment', { department: dept, error: "Server Error", message: "Please Try Again" });
    }
 }
 async function checkUsersInDepartment(req, res) {
@@ -128,7 +128,7 @@ async function deleteDepartment(req, res) {
       const deptId = req.params.id;
       const dept = await departments.findById(deptId);
       if (!dept) {
-         return res.render('AllDepartment', { departments: [], error: "Department Not Found", message: "", curr: 1 })
+         return res.render('admin/AllDepartment', { departments: [], error: "Department Not Found", message: "", curr: 1 })
       }
 
       await departments.findByIdAndDelete(deptId)
@@ -138,28 +138,27 @@ async function deleteDepartment(req, res) {
    }
 }
 async function getCreateUser(req, res) {
-   res.render('createUser', { departments: await departments.find({}) || [], error: "", message: "" })
+   res.render('admin/createUser', { departments: await departments.find({}) || [], error: "", message: "" })
 }
 async function handleCreateUser(req, res) {
    try {
       const { Name, Email, Password, Phone, Role, Department } = req.body;
       if (!Name || !Email || !Password || !Phone || !Role || !Department || Department === "--No Option--" || Role === "--No Option--") {
-         return res.render('createUser', { departments: await departments.find({}) || [], error: "All fields are required", message: "" })
+         return res.render('admin/createUser', { departments: await departments.find({}) || [], error: "All fields are required", message: "" })
       }
 
       const existingUser = await users.findOne({ Email: Email });
 
       if (existingUser) {
-         return res.render('createUser', { departments: await departments.find({}) || [], error: "User with this email already exists", message: "" })
+         return res.render('admin/createUser', { departments: await departments.find({}) || [], error: "User with this email already exists", message: "" })
       }
       const newUser = new users({ Name, Email, Password: await bcrypt.hash(Password, 10), Phone, Role, Department });
       await newUser.save();
 
-
-      res.render('createUser', { departments: await departments.find({}) || [], error: "", message: "User created successfully" })
+      res.render('admin/createUser', { departments: await departments.find({}) || [], error: "", message: "User created successfully" })
 
    } catch (err) {
-      res.render('createUser', { departments: await departments.find({}) || [], error: "Internal Server Error", message: "" })
+      res.render('admin/createUser', { departments: await departments.find({}) || [], error: "Internal Server Error", message: "" })
    }
 }
 async function getDepartments(req, res) {
@@ -203,7 +202,7 @@ async function getDepartments(req, res) {
 
       const allDepartments = await departments.aggregate(pipeline);
 
-      res.render("AllDepartment", {
+      res.render("admin/AllDepartment", {
          departments: allDepartments,
          error: allDepartments.length === 0 ? "No Departments Found" : "",
          message: "",
@@ -213,7 +212,7 @@ async function getDepartments(req, res) {
       });
 
    } catch (err) {
-      res.render("AllDepartment", {
+         res.render("admin/AllDepartment", {
          departments: [],
          error: "Server Error",
          message: "",
@@ -263,7 +262,7 @@ async function getUsers(req, res) {
 
       const allUsers = await users.aggregate(pipeline);
 
-      res.render("AllUsers", {
+      res.render("admin/AllUsers", {
          users: allUsers,
          // prefer explicit flash error, otherwise show "No Users Found" when list empty
          error: flashError || (allUsers.length === 0 ? "No Users Found" : ""),
@@ -274,7 +273,7 @@ async function getUsers(req, res) {
       });
 
    } catch (err) {
-      res.render("AllUsers", {
+         res.render("admin/AllUsers", {
          users: [],
          error: "Server Error",
          message: "",
@@ -289,7 +288,7 @@ async function editUser(req, res) {
       const userId = req.params.id;
       const user = await users.findById(userId).populate('Department');
 
-      return res.render('editUser',
+      return res.render('admin/editUser',
          {
             user: user,
             error: "",
@@ -307,7 +306,7 @@ async function updateUser(req, res) {
 
       if (!Name || !Email || !Phone || !Role || !Role) {
          const user = await users.findById(userId).populate('Department');
-         return res.render('editUser',
+         return res.render('admin/editUser',
             {
                user: user,
                error: "All fields are required",
@@ -319,7 +318,7 @@ async function updateUser(req, res) {
       res.redirect('/admin/allUsers/1');
    } catch (err) {
       const user = await users.findById(userId).populate('Department');
-      return res.render('editUser',
+      return res.render('admin/editUser',
          {
             user: user,
             error: "All fields are required",

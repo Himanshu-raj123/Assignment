@@ -30,9 +30,9 @@ router.post('/login', async (req, res) => {
       return res.render('login', { message: "", error: "Incorrect password." });
    }
 
-   const token = jwt.sign({ id: user._id, role: role,name: user.Name}, "HEllODEVELOPER", { expiresIn: '1h' });
+   const token = jwt.sign({ id: user._id, email: user.Email, role: role, name: user.Name}, "HEllODEVELOPER", { expiresIn: '1h' });
 
-   res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
+   res.cookie('jwt', token, { httpOnly: true, maxAge: 60*60*1000 });
    return res.redirect(`/${role.toLowerCase()}/dashboard`);
 });
 

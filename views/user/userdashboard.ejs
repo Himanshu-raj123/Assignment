@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>UserDashboard</title>
+   <link rel="stylesheet" href="/userdashboard.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+   <div id="header">
+
+      <a href="/user/dashboard">
+         <i class="fa-solid fa-house"></i>
+         <h1>User-Pannel</h1>
+      </a>
+
+      <div id="part2">
+         <a href="/user/about">About</a>
+         <a href="/user/contact">Contact</a>
+         <a href="/user/logout"><button>Logout</button></a>
+      </div>
+   </div>
+   <u>
+      <h1>Welcome User</h1>
+   </u>
+
+   <hr style="width: 90%">
+
+   <div id="main">
+      <div id="navigation">
+         <h2>Navigation</h2>
+         <a href="/user/dashboard"><button>Dashboard</button></a>
+         <a href="/user/assignments"><button>All Assignments</button></a>
+         <a href="/user/profile"><button>Profile</button></a>
+      </div>
+      <div id="count">
+         <h2>Assignment Dashboard</h2>
+
+         <div id="count1">
+            <div id="draft">
+               <p>Draft</p>
+               <span>
+                  <%= statusCount.draft %>
+               </span>
+            </div>
+            <div id="submitted">
+               <p>Submitted</p>
+               <span>
+                  <%= statusCount.submitted %>
+               </span>
+            </div>
+            <div id="accepted">
+               <p>Approved</p>
+               <span>
+                  <%= statusCount.approved %>
+               </span>
+            </div>
+            <div id="rejected">
+               <p>Rejected</p>
+               <span>
+                  <%= statusCount.rejected %>
+               </span>
+            </div>
+         </div>
+         <div id="count2">
+            <h3><u>Recent Submissions</u></h3>
+            <a href="/user/uploadAssignment"><button>Upload New Assignment</button></a>
+         </div>
+
+         <div id="count3">
+            <% if (assignments.length===0) { %>
+               <div class="empty-msg">No Assignments for this user</div>
+               <% } else { %>
+
+                  <% assignments.forEach((topic, ind)=> { %>
+                     <% if (ind < 5) { %>
+                        <div class="assignment-row">
+                           <div class="assignment-title">
+                              <%= topic.Title %>
+                           </div>
+
+                           <div class="assignment-status">
+                              <%= topic.Status %>
+                           </div>
+                        </div>
+                        <% } %>
+                           <% }) %>
+
+                              <% } %>
+         </div>
+
+         <br>
+
+         <a href="/user/assignments">View All Assignments <i class="fa-solid fa-hand-point-right"></i></a>
+      </div>
+   </div>
+
+   <hr>
+   <% if (message) { %>
+      <div id="toast" style="
+    position: fixed;
+    top: 20px;
+    right: 40%;
+    background: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 15px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+">
+         <%= message %>
+      </div>
+
+      <script>
+         setTimeout(() => {
+            document.getElementById('toast').style.display = "none";
+         }, 3000);
+      </script>
+      <% } %>
+
+</body>
+
+</html>
