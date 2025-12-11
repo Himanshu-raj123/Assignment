@@ -1,4 +1,6 @@
 const express = require('express');
+const Assignment = require('./models/assignment');
+const path = require('path');
 const app = express();
 const port = 3000;
 
@@ -31,6 +33,14 @@ app.get('/', (req, res) => {
 app.use('/admin', adminRouter)
 app.use('/common',commonRouter)
 app.use('/user',userRouter)
+
+app.get("/download/:id", async (req, res) => {
+   const assignment = await Assignment.findById(req.params.id);
+   if (!assignment) return res.status(404).send("File not found");
+
+   const filePath = assignment.FilePath;
+   res.download(filePath);  // THIS triggers download
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

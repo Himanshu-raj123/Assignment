@@ -47,7 +47,8 @@
       <button type="submit">Upload</button>
    </form>
 </body>
-<% if (message || error) { %>
+
+<% if (message !== "" || error!=="") { %>
    <div id="toast" style="
     position: fixed;
     top: 20px;
@@ -60,7 +61,7 @@
     font-size: 15px;
     box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
 ">
-      <%= message %>
+      <%= message || error %>
    </div>
 
    <script>

@@ -4,7 +4,7 @@ const router = express.Router();
 const checkLogin =  require('../Auth/checkLogin')
 const checkAuth = require('../Auth/checkAuth')
 const checkAuthorization = require('../Auth/checkAuthorization')  
-const {handleSignup,handleLogout,getSignup,getDashboard,getCreateDepartment,handleCreateDepartment,getDepartments,editDepartment,updateDepartment,deleteDepartment,getCreateUser,handleCreateUser,getUsers,checkUsersInDepartment,editUser,updateUser,deleteUser} = require('../controllers/admin')
+const {handleSignup,handleLogout,getSignup,getDashboard,getCreateDepartment,handleCreateDepartment,getDepartments,editDepartment,updateDepartment,deleteDepartment,getCreateUser,handleCreateUser,getUsers,checkUsersInDepartment,editUser,updateUser,deleteUser,getAbout,getContact} = require('../controllers/admin')
 
 router.get('/signup',getSignup)
 
@@ -16,6 +16,10 @@ router.post('/signup',handleSignup)
 router.get('/dashboard', getDashboard)
 
 router.get('/logout',checkAuth,handleLogout)
+
+router.get('/about',checkAuth,getAbout)
+
+router.get('/contact',checkAuth,getContact)
 
 router.get('/createDepartment',checkAuthorization,getCreateDepartment)
 

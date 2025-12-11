@@ -3,6 +3,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+    background-image: url('https://images.pexels.com/photos/5425686/pexels-photo-5425686.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
 }
 
 /* Center the buttons container */

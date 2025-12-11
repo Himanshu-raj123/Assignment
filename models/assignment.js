@@ -1,47 +1,58 @@
 const mongoose = require('mongoose');
 
-const assignmentSchema = new mongoose.Schema({
-   Title: {
+const assignmentSchema = new mongoose.Schema(
+  {
+    Title: {
       type: String,
       required: true
-   },
-   Description: {
+    },
+    Description: {
       type: String,
       required: true
-   },
-   Category: {
+    },
+    Category: {
       type: String,
       enum: ['Assignment', 'Thesis', 'Report'],
       required: true
-   },
-   FilePath: {
+    },
+    FilePath: {
       type: String,
       required: true
-   },
-   FileName: {
+    },
+    FileName: {
       type: String,
       required: true
-   },
-   FileSize: {
+    },
+    FileSize: {
       type: Number,
       required: true
-   },
-   Status: {
+    },
+    Status: {
       type: String,
       enum: ['draft', 'submitted', 'reviewed', 'approved', 'rejected'],
       default: 'draft'
-   },
-   StudentId: {
+    },
+    StudentId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users',
       required: true
-   },
-   StudentEmail: {
+    },
+    StudentEmail: {
       type: String,
       required: true
-   }
-});
+    },
+    Reviewer: {
+      type: String,
+      default: "Not Appointed yet"
+    }
+  },
+  {
+    timestamps: {
+      createdAt: 'SubmittedAt',
+      updatedAt: 'UpdatedAt'
+    }
+  }
+);
 
-const assignment = mongoose.model('assignments', assignmentSchema);
-
-module.exports = assignment;
+const Assignment = mongoose.model('assignments', assignmentSchema);
+module.exports = Assignment;

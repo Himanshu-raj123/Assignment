@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>My Assignments</title>
+   <link rel="stylesheet" href="/allAssignments.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+   <!-- Header -->
+   <div id="header">
+      <a href="/user/dashboard">
+         <i class="fa-solid fa-house"></i>
+         <h1>User Panel</h1>
+      </a>
+      <div id="part2">
+         <a href="/user/dashboard">Dashboard</a>
+         <a href="/user/about">About</a>
+         <a href="/user/contact">Contact</a>
+         <a href="/admin/logout"><button>Logout</button></a>
+      </div>
+   </div>
+
+   <!-- Main Container -->
+   <div class="container">
+
+      <!-- Page Header -->
+      <div class="page-header">
+         <h1><i class="fa-solid fa-file-lines"></i> My Assignments</h1>
+         <div class="header-stats">
+            <div class="stat-item">
+               <div class="stat-number">
+                  <%= totalAssignments || 0 %>
+               </div>
+               <div class="stat-label">Total</div>
+            </div>
+            <div class="stat-item">
+               <div class="stat-number">
+                  <%= draftCount || 0 %>
+               </div>
+               <div class="stat-label">Draft</div>
+            </div>
+            <div class="stat-item">
+               <div class="stat-number">
+                  <%= approvedCount || 0 %>
+               </div>
+               <div class="stat-label">Approved</div>
+            </div>
+         </div>
+      </div>
+
+      <!-- Controls Section -->
+      <div class="controls-section">
+         <div class="control-group">
+            <label for="statusFilter"><i class="fa-solid fa-filter"></i> Filter by Status</label>
+            <select id="statusFilter" name="status">
+               <option value="">Select</option>
+               <option value="draft">Draft</option>
+               <option value="submitted">Submitted</option>
+               <option value="approved">Approved</option>
+               <option value="rejected">Rejected</option>
+            </select>
+         </div>
+
+         <div class="control-group">
+            <label for="sortBy"><i class="fa-solid fa-sort"></i> Sort by</label>
+            <select id="sortBy" name="sort">
+               <option value="">Select</option>
+               <option value="newest">Newest First</option>
+               <option value="oldest">Oldest First</option>
+            </select>
+         </div>
+
+         <div class="control-group">
+            <label for="searchInput"><i class="fa-solid fa-magnifying-glass"></i> Search</label>
+            <input type="text" id="searchInput" placeholder="Search by title...">
+         </div>
+
+         <div class="button-group">
+            <button class="btn btn-primary" onclick="applyFilters()">
+               <i class="fa-solid fa-check"></i> Apply
+            </button>
+            <button class="btn btn-secondary" onclick="resetFilters()">
+               <i class="fa-solid fa-rotate-left"></i> Reset
+            </button>
+         </div>
+      </div>
+
+      <!-- Table Section -->
+      <div class="table-section">
+         <div class="table-wrapper">
+            <% if (assignments && assignments.length> 0) { %>
+               <table>
+                  <thead>
+                     <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Submitted Date</th>
+                        <th>Current Reviewer</th>
+                        <th>Action</th>
+                     </tr>
+                  </thead>
+                  <tbody id="assignmentTableBody">
+                     <% assignments.forEach(function(assignment) { %>
+                        <tr class="assignment-row">
+                           <td>
+                              <strong>
+                                 <%= assignment.Title %>
+                              </strong>
+                           </td>
+                           <td>
+                              <span class="category-tag">
+                                 <%= assignment.Category %>
+                              </span>
+                           </td>
+                           <td>
+                              <span class="badge badge-<%= assignment.Status.toLowerCase().replace(/\s+/g, '-') %>">
+                                 <%= assignment.Status %>
+                              </span>
+                           </td>
+                           <td>
+                              <% if (assignment.SubmittedAt) { %>
+                                 <%= new Date(assignment.SubmittedAt).toLocaleDateString('en-US', { year: 'numeric' ,
+                                    month: 'short' , day: 'numeric' }) %>
+                                    <% } else { %>
+                                       <span style="color: #ccc;">Not submitted</span>
+                                       <% } %>
+                           </td>
+                           <td>
+                              <% if (assignment.Reviewer) { %>
+                                 <%= assignment.Reviewer %>
+                                    <% } else { %>
+                                       <span style="color: #ccc;">-</span>
+                                       <% } %>
+                           </td>
+                           <td>
+                              <a href="/user/assignment/<%= assignment._id %>" class="view-link">
+                                 <i class="fa-solid fa-eye"></i> View
+                              </a>
+                           </td>
+                        </tr>
+                        <% }); %>
+                  </tbody>
+               </table>
+               <% } else { %>
+                  <div class="empty-state">
+                     <i class="fa-solid fa-inbox"></i>
+                     <h2>No assignments found</h2>
+                     <p>You haven't submitted any assignments yet. Start by uploading one!</p>
+                  </div>
+                  <% } %>
+         </div>
+      </div>
+
+   </div>
+
+   <!-- Toast Notification -->
+   <% if (message || error) { %>
+      <div class="toast <%= error ? 'error' : '' %>" id="toast">
+         <i class="fa-solid fa-<%= error ? 'circle-xmark' : 'circle-check' %>"></i>
+         <%= message || error %>
+      </div>
+
+      <script>
+         setTimeout(() => {
+            const toast = document.getElementById('toast');
+            if (toast) {
+               toast.style.animation = 'slideIn 0.3s ease reverse';
+               setTimeout(() => toast.remove(), 300);
+            }
+         }, 4000);
+      </script>
+      <% } %>
+
+         <script>
+            function applyFilters() {
+               const status = document.getElementById('statusFilter').value;
+               const sort = document.getElementById('sortBy').value;
+               const search = document.getElementById('searchInput').value;
+
+               // Build query string
+               const params = new URLSearchParams();
+               if (status) params.append('status', status);
+               if (sort) params.append('sort', sort);
+               if (search) params.append('search', search);
+
+               // Redirect with filters
+               window.location.href = '/user/assignments?' + params.toString();
+            }
+
+            function resetFilters() {
+               document.getElementById('statusFilter').value = '';
+               document.getElementById('sortBy').value = 'newest';
+               document.getElementById('searchInput').value = '';
+               window.location.href = '/user/assignments';
+            }
+
+            // Allow Enter key to search
+            document.getElementById('searchInput').addEventListener('keypress', function (e) {
+               if (e.key === 'Enter') {
+                  applyFilters();
+               }
+            });
+         </script>
+
+</body>
+
+</html>

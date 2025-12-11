@@ -58,8 +58,14 @@ async function handleLogout(req, res) {
    res.clearCookie('jwt');
    res.redirect("/common/login");
 }
+async function getAbout(req, res) {
+   res.render('admin/about', { user: req.user });
+}
+async function getContact(req, res) {
+   res.render('admin/contact', { user: req.user });
+}
 async function getDashboard(req, res) {
-   res.render('admin/admindashboard', {
+   res.render('admin/admindashboard',{
       error: "",
       message: "Welcome to Admin Dashboard",
       data: await AdminDashboardStatsCount(),
@@ -358,6 +364,6 @@ async function deleteUser(req, res) {
 module.exports = {
    handleSignup, handleLogout,
    getSignup, getDashboard, getCreateDepartment, handleCreateDepartment,
-   getDepartments, editDepartment, updateDepartment, deleteDepartment, getCreateUser, handleCreateUser, getUsers, checkUsersInDepartment, editUser, updateUser, deleteUser
+   getDepartments, editDepartment, updateDepartment, deleteDepartment, getCreateUser, handleCreateUser, getUsers, checkUsersInDepartment, editUser, updateUser, deleteUser,getContact,getAbout,
    // filteredSearch,
 } 

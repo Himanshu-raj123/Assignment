@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { dashboardHandler, assignmentsHandler, profileHandeller, getUploadAssignment, handleuploadAssignment } = require('../controllers/user');
+const { dashboardHandler, getallAssignments, profileHandeller, getUploadAssignment, handleuploadAssignment,getThisAssignments } = require('../controllers/user');
 const checkAuth = require('../Auth/checkAuth');
 const upload = require('../config/multerConfig');
 
 
 // Define user-related routes here
 router.get('/dashboard', checkAuth, dashboardHandler);
-router.get('/assignments', checkAuth, assignmentsHandler);
+router.get('/assignments', checkAuth, getallAssignments);
+router.get('/assignment/:id', checkAuth, getThisAssignments);
 router.get('/profile', checkAuth, profileHandeller);
 router.get('/uploadAssignment', checkAuth, getUploadAssignment);
 router.post('/uploadAssignment',checkAuth,
@@ -21,7 +22,6 @@ router.post('/uploadAssignment',checkAuth,
             message: ''
           });
         }
-
         return res.render('user/uploadAssignment', {
           user: req.user,
           error: err.message,
@@ -34,6 +34,12 @@ router.post('/uploadAssignment',checkAuth,
   },
   handleuploadAssignment
 );
+router.get('/about',checkAuth,(req,res)=>{
+   res.render('user/about',{user:req.user});
+});
+router.get('/contact',checkAuth,(req,res)=>{
+   res.render('user/contact',{user:req.user});
+});
 
 
 module.exports = router;

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Contact - Admin Panel</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   <style>
+      * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+      }
+
+      body {
+         font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+         background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+         min-height: 100vh;
+         color: #333;
+      }
+
+      /* Header */
+      #header {
+         background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+         color: white;
+         padding: 20px 30px;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      #header a {
+         color: white;
+         text-decoration: none;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+      }
+
+      #header h1 {
+         font-size: 24px;
+         font-weight: 700;
+      }
+
+      #header i {
+         font-size: 28px;
+      }
+
+      #part2 {
+         display: flex;
+         gap: 15px;
+         align-items: center;
+      }
+
+      #part2 a {
+         font-size: 14px;
+         transition: opacity 0.3s ease;
+      }
+
+      #part2 a:hover {
+         opacity: 0.8;
+      }
+
+      #part2 button {
+         background: rgba(255, 255, 255, 0.2);
+         border: 1px solid white;
+         color: white;
+         padding: 8px 16px;
+         border-radius: 6px;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         font-weight: 600;
+      }
+
+      #part2 button:hover {
+         background: white;
+         color: #667eea;
+      }
+
+      /* Main Container */
+      .contact-container {
+         max-width: 1100px;
+         margin: 40px auto;
+         padding: 0 20px;
+      }
+
+      /* Page Title */
+      .page-title {
+         text-align: center;
+         margin-bottom: 40px;
+      }
+
+      .page-title h1 {
+         font-size: 36px;
+         color: #2b1f6a;
+         margin-bottom: 10px;
+      }
+
+      .page-title p {
+         font-size: 16px;
+         color: #666;
+      }
+
+      /* Back Button */
+      .back-btn {
+         display: inline-block;
+         margin-bottom: 20px;
+         padding: 10px 20px;
+         background: #667eea;
+         color: white;
+         border-radius: 8px;
+         text-decoration: none;
+         transition: all 0.3s ease;
+         font-weight: 600;
+      }
+
+      .back-btn:hover {
+         background: #764ba2;
+         transform: translateX(-4px);
+      }
+
+      /* Two Column Layout */
+      .contact-wrapper {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: 30px;
+         margin-bottom: 40px;
+      }
+
+      /* Contact Form */
+      .contact-form {
+         background: white;
+         padding: 30px;
+         border-radius: 12px;
+         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .contact-form h2 {
+         color: #2b1f6a;
+         font-size: 24px;
+         margin-bottom: 20px;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+      }
+
+      .form-group {
+         margin-bottom: 20px;
+      }
+
+      .form-group label {
+         display: block;
+         color: #555;
+         font-weight: 600;
+         margin-bottom: 8px;
+         font-size: 14px;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+         width: 100%;
+         padding: 12px;
+         border: 1px solid #e0e7ff;
+         border-radius: 8px;
+         font-family: inherit;
+         font-size: 14px;
+         transition: all 0.3s ease;
+         background: white;
+         color: #333;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+         outline: none;
+         border-color: #667eea;
+         box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+         transform: translateY(-2px);
+      }
+
+      .form-group textarea {
+         resize: vertical;
+         min-height: 120px;
+      }
+
+      .submit-btn {
+         width: 100%;
+         padding: 12px;
+         background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+         color: white;
+         border: none;
+         border-radius: 8px;
+         font-weight: 600;
+         font-size: 15px;
+         cursor: pointer;
+         transition: all 0.3s ease;
+      }
+
+      .submit-btn:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+      }
+
+      .submit-btn:active {
+         transform: translateY(0);
+      }
+
+      /* Contact Information */
+      .contact-info-section {
+         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+         color: white;
+         padding: 30px;
+         border-radius: 12px;
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+      }
+
+      .contact-info-section h2 {
+         font-size: 24px;
+         margin-bottom: 25px;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+      }
+
+      .info-item {
+         display: flex;
+         gap: 15px;
+         margin-bottom: 25px;
+         padding-bottom: 25px;
+         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .info-item:last-child {
+         border-bottom: none;
+         margin-bottom: 0;
+         padding-bottom: 0;
+      }
+
+      .info-item i {
+         font-size: 24px;
+         flex-shrink: 0;
+         width: 30px;
+         text-align: center;
+      }
+
+      .info-item-content h3 {
+         font-size: 16px;
+         margin-bottom: 6px;
+         font-weight: 600;
+      }
+
+      .info-item-content p {
+         font-size: 14px;
+         opacity: 0.9;
+         line-height: 1.5;
+      }
+
+      .info-item-content a {
+         color: white;
+         text-decoration: none;
+         transition: opacity 0.3s ease;
+      }
+
+      .info-item-content a:hover {
+         opacity: 0.8;
+         text-decoration: underline;
+      }
+
+      /* Social Links */
+      .social-links {
+         display: flex;
+         gap: 15px;
+         margin-top: 20px;
+         padding-top: 20px;
+         border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .social-links a {
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         width: 40px;
+         height: 40px;
+         background: rgba(255, 255, 255, 0.2);
+         color: white;
+         border-radius: 8px;
+         text-decoration: none;
+         transition: all 0.3s ease;
+         font-size: 16px;
+      }
+
+      .social-links a:hover {
+         background: white;
+         color: #667eea;
+         transform: translateY(-3px);
+      }
+
+      /* Map Section */
+      .map-section {
+         background: white;
+         padding: 30px;
+         border-radius: 12px;
+         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+         margin-bottom: 40px;
+      }
+
+      .map-section h2 {
+         color: #2b1f6a;
+         font-size: 24px;
+         margin-bottom: 20px;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+      }
+
+      .map-placeholder {
+         width: 100%;
+         height: 300px;
+         background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+         border-radius: 8px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         color: #667eea;
+         font-size: 16px;
+         border: 2px dashed #667eea;
+      }
+
+      /* FAQ Section */
+      .faq-section {
+         background: white;
+         padding: 30px;
+         border-radius: 12px;
+         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .faq-section h2 {
+         color: #2b1f6a;
+         font-size: 24px;
+         margin-bottom: 20px;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+      }
+
+      .faq-item {
+         margin-bottom: 15px;
+         border-bottom: 1px solid #e0e7ff;
+         padding-bottom: 15px;
+      }
+
+      .faq-item:last-child {
+         border-bottom: none;
+      }
+
+      .faq-question {
+         color: #667eea;
+         font-weight: 600;
+         margin-bottom: 8px;
+         cursor: pointer;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+      }
+
+      .faq-question i {
+         font-size: 14px;
+      }
+
+      .faq-answer {
+         color: #666;
+         font-size: 14px;
+         line-height: 1.6;
+         margin-left: 24px;
+      }
+
+      /* Response Message */
+      .response-message {
+         display: none;
+         padding: 15px;
+         border-radius: 8px;
+         margin-bottom: 20px;
+         font-weight: 600;
+      }
+
+      .response-message.success {
+         background: #d4edda;
+         color: #155724;
+         border: 1px solid #c3e6cb;
+         display: block;
+      }
+
+      .response-message.error {
+         background: #f8d7da;
+         color: #721c24;
+         border: 1px solid #f5c6cb;
+         display: block;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+         #header {
+            flex-direction: column;
+            gap: 15px;
+         }
+
+         #part2 {
+            justify-content: center;
+            flex-wrap: wrap;
+         }
+
+         .page-title h1 {
+            font-size: 28px;
+         }
+
+         .contact-wrapper {
+            grid-template-columns: 1fr;
+         }
+
+         .contact-form,
+         .contact-info-section,
+         .map-section,
+         .faq-section {
+            padding: 20px;
+         }
+
+         .map-placeholder {
+            height: 200px;
+         }
+
+         .social-links {
+            justify-content: center;
+         }
+      }
+
+      /* Footer */
+      .footer {
+         text-align: center;
+         padding: 30px 20px;
+         color: #888;
+         font-size: 14px;
+         margin-top: 40px;
+      }
+
+      .footer p {
+         margin-bottom: 8px;
+      }
+   </style>
+</head>
+
+<body>
+
+   <!-- Header -->
+   <div id="header">
+      <a href="/admin/dashboard">
+         <i class="fa-solid fa-house"></i>
+         <h1>Admin Panel</h1>
+      </a>
+
+      <div id="part2">
+         <a href="/admin/dashboard">Dashboard</a>
+         <a href="/admin/about">About</a>
+         <a href="/admin/contact">Contact</a>
+         <a href="/admin/logout"><button>Logout</button></a>
+      </div>
+   </div>
+
+   <!-- Main Content -->
+   <div class="contact-container">
+
+      <a href="/admin/dashboard" class="back-btn">
+         <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+      </a>
+
+      <!-- Page Title -->
+      <div class="page-title">
+         <h1>Get In Touch</h1>
+         <p>We're here to help. Send us your queries and feedback</p>
+      </div>
+
+      <!-- Contact Form & Info -->
+      <div class="contact-wrapper">
+
+         <!-- Contact Form -->
+         <div class="contact-form">
+            <h2><i class="fa-solid fa-envelope"></i> Send Us a Message</h2>
+
+            <div class="response-message" id="responseMessage"></div>
+
+            <form id="contactForm" onsubmit="handleSubmit(event)">
+               <div class="form-group">
+                  <label for="name">Full Name <span style="color: #e74c3c;">*</span></label>
+                  <input type="text" id="name" name="name" required placeholder="Enter your name">
+               </div>
+
+               <div class="form-group">
+                  <label for="email">Email Address <span style="color: #e74c3c;">*</span></label>
+                  <input type="email" id="email" name="email" required placeholder="Enter your email">
+               </div>
+
+               <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+               </div>
+
+               <div class="form-group">
+                  <label for="subject">Subject <span style="color: #e74c3c;">*</span></label>
+                  <select id="subject" name="subject" required>
+                     <option value="">Select a subject</option>
+                     <option value="technical">Technical Support</option>
+                     <option value="feedback">Feedback</option>
+                     <option value="bug">Bug Report</option>
+                     <option value="feature">Feature Request</option>
+                     <option value="other">Other</option>
+                  </select>
+               </div>
+
+               <div class="form-group">
+                  <label for="message">Message <span style="color: #e74c3c;">*</span></label>
+                  <textarea id="message" name="message" required placeholder="Enter your message..."></textarea>
+               </div>
+
+               <button type="submit" class="submit-btn">
+                  <i class="fa-solid fa-paper-plane"></i> Send Message
+               </button>
+            </form>
+         </div>
+
+         <!-- Contact Information -->
+         <div class="contact-info-section">
+            <div>
+               <h2><i class="fa-solid fa-phone"></i> Contact Information</h2>
+
+               <div class="info-item">
+                  <i class="fa-solid fa-envelope"></i>
+                  <div class="info-item-content">
+                     <h3>Email</h3>
+                     <p><a href="mailto:support@assignment-system.com">support@assignment-system.com</a></p>
+                     <p><a href="mailto:admin@assignment-system.com">admin@assignment-system.com</a></p>
+                  </div>
+               </div>
+
+               <div class="info-item">
+                  <i class="fa-solid fa-phone"></i>
+                  <div class="info-item-content">
+                     <h3>Phone</h3>
+                     <p>+1 (800) 123-4567</p>
+                     <p>+1 (800) 123-4568</p>
+                  </div>
+               </div>
+
+               <div class="info-item">
+                  <i class="fa-solid fa-map-marker-alt"></i>
+                  <div class="info-item-content">
+                     <h3>Address</h3>
+                     <p>123 Education Street<br>University Campus, City 12345<br>Country</p>
+                  </div>
+               </div>
+
+               <div class="info-item">
+                  <i class="fa-solid fa-clock"></i>
+                  <div class="info-item-content">
+                     <h3>Working Hours</h3>
+                     <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 3:00 PM<br>Sunday: Closed</p>
+                  </div>
+               </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="social-links">
+               <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+               <a href="#" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+               <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+               <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+         </div>
+
+      </div>
+
+      <!-- Map Section -->
+      <div class="map-section">
+         <h2><i class="fa-solid fa-location-dot"></i> Our Location</h2>
+         <div class="map-placeholder">
+            <i class="fa-solid fa-map"></i> &nbsp; Click here to view our location on Google Maps
+         </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="faq-section">
+         <h2><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions</h2>
+
+         <div class="faq-item">
+            <div class="faq-question">
+               <i class="fa-solid fa-chevron-right"></i> How can I report a technical issue?
+            </div>
+            <div class="faq-answer">
+               Please use the contact form above and select "Technical Support" as the subject. Our team will
+               respond within 24 hours.
+            </div>
+         </div>
+
+         <div class="faq-item">
+            <div class="faq-question">
+               <i class="fa-solid fa-chevron-right"></i> What is the response time for inquiries?
+            </div>
+            <div class="faq-answer">
+               We aim to respond to all inquiries within 24-48 business hours. Urgent issues may be resolved
+               faster depending on priority.
+            </div>
+         </div>
+
+         <div class="faq-item">
+            <div class="faq-question">
+               <i class="fa-solid fa-chevron-right"></i> How can I provide feedback or suggestions?
+            </div>
+            <div class="faq-answer">
+               We'd love to hear from you! Use the contact form and select "Feedback" as the subject. Your
+               suggestions help us improve the system.
+            </div>
+         </div>
+
+         <div class="faq-item">
+            <div class="faq-question">
+               <i class="fa-solid fa-chevron-right"></i> Do you offer phone support?
+            </div>
+            <div class="faq-answer">
+               Yes, phone support is available during working hours. You can reach us at +1 (800) 123-4567 for
+               urgent assistance.
+            </div>
+         </div>
+
+         <div class="faq-item">
+            <div class="faq-question">
+               <i class="fa-solid fa-chevron-right"></i> How is my data handled?
+            </div>
+            <div class="faq-answer">
+               We follow strict data protection protocols and comply with all privacy regulations. Your
+               information is secure and confidential.
+            </div>
+         </div>
+
+      </div>
+
+   </div>
+
+   <!-- Footer -->
+   <div class="footer">
+      <p>&copy; 2025 Assignment Approval System. All rights reserved.</p>
+      <p>Version 1.0.0 | Developed with <i class="fa-solid fa-heart"></i> for Education</p>
+   </div>
+
+   <script>
+      function handleSubmit(event) {
+         event.preventDefault();
+
+         const name = document.getElementById('name').value;
+         const email = document.getElementById('email').value;
+         const phone = document.getElementById('phone').value;
+         const subject = document.getElementById('subject').value;
+         const message = document.getElementById('message').value;
+
+         // Simple validation
+         if (!name || !email || !subject || !message) {
+            showMessage('Please fill in all required fields.', 'error');
+            return;
+         }
+
+         // Simulate sending message
+         showMessage('Thank you for your message! We will get back to you shortly.', 'success');
+         document.getElementById('contactForm').reset();
+
+         // In real scenario, send data to backend
+         console.log({ name, email, phone, subject, message });
+      }
+
+      function showMessage(text, type) {
+         const messageDiv = document.getElementById('responseMessage');
+         messageDiv.textContent = text;
+         messageDiv.className = `response-message ${type}`;
+
+         // Auto-hide after 5 seconds
+         setTimeout(() => {
+            messageDiv.style.display = 'none';
+         }, 5000);
+      }
+   </script>
+
+</body>
+
+</html>

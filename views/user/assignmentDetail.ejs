@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Assignment Detail</title>
+   <link rel="stylesheet" href="/assignmentDetail.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+   <div id="header">
+      <a href="/user/dashboard">
+         <i class="fa-solid fa-house"></i>
+         <h1>User Panel</h1>
+      </a>
+      <div id="part2">
+         <a href="/user/dashboard">Dashboard</a>
+         <a href="/user/about">About</a>
+         <a href="/user/contact">Contact</a>
+         <a href="/admin/logout"><button>Logout</button></a>
+      </div>
+   </div>
+   <div class="card">
+      <div class="top">
+         <div class="title">
+            <i class="fa-solid fa-file-lines" style="font-size:26px;color:var(--primary)"></i>
+            <div>
+               <h1>Assignment Details</h1>
+               <div class="meta">View and manage your uploaded assignment</div>
+            </div>
+         </div>
+         <div class="actions">
+            <a href="/user/assignments" class="btn btn-outline"><i class="fa-solid fa-arrow-left"></i> Back to list</a>
+            <% if (assignment && assignment.FilePath) { %>
+               <a href="/download/<%= assignment._id %>" class="btn btn-primary"><i class="fa-solid fa-download"></i>
+                  Download</a>
+               <% } %>
+         </div>
+      </div>
+
+      <div class="grid">
+         <div>
+            <div class="section">
+               <div class="field">
+                  <div class="label">Title</div>
+                  <div class="value">
+                     <%= assignment && assignment.Title ? assignment.Title : '—' %>
+                  </div>
+               </div>
+
+               <div class="field">
+                  <div class="label">Description</div>
+                  <div class="value">
+                     <%= assignment && assignment.Description ? assignment.Description : 'No description provided.' %>
+                  </div>
+               </div>
+
+               <div class="field">
+                  <div class="label">Student Email</div>
+                  <div class="value">
+                     <%= assignment && assignment.StudentEmail ? assignment.StudentEmail : (user && user.email ?
+                        user.email : '—' ) %>
+                  </div>
+               </div>
+
+               <div class="field" style="display:flex;gap:12px;flex-wrap:wrap">
+                  <div>
+                     <div class="label">Category</div>
+                     <div class="value">
+                        <%= assignment && assignment.Category ? assignment.Category : '—' %>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="label">Status</div>
+                     <div class="value">
+                        <% if (assignment && assignment.Status) { %>
+                           <span class="badge badge-<%= assignment.Status.toLowerCase().replace(/\s+/g,'-') %>">
+                              <%= assignment.Status %>
+                           </span>
+                           <% } else { %>
+                              —
+                              <% } %>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="field">
+                  <div class="label">Reviewer</div>
+                  <div class="value">
+                     <%= assignment && assignment.Reviewer ? assignment.Reviewer : 'Not Appointed yet' %>
+                  </div>
+               </div>
+
+               <div class="field" style="display:flex;gap:12px;flex-wrap:wrap">
+                  <div>
+                     <div class="label">Submitted At</div>
+                     <div class="value">
+                        <% if (assignment && assignment.SubmittedAt) { %>
+                           <%= new Date(assignment.SubmittedAt).toLocaleString('en-US', { year:'numeric', month:'short',
+                              day:'numeric', hour:'2-digit', minute:'2-digit' }) %>
+                              <% } else { %>
+                                 <span style="color:#9aa4c0">Not submitted</span>
+                                 <% } %>
+                     </div>
+                  </div>
+
+                  <div>
+                     <div class="label">Last Updated</div>
+                     <div class="value">
+                        <% if (assignment && assignment.updatedAt) { %>
+                           <%= new Date(assignment.updatedAt).toLocaleString() %>
+                              <% } else if (assignment && assignment.UpdatedAt) { %>
+                                 <%= new Date(assignment.UpdatedAt).toLocaleString() %>
+                                    <% } else { %>
+                                       —
+                                       <% } %>
+                     </div>
+                  </div>
+               </div>
+
+            </div>
+         </div>
+
+         <div>
+            <div class="section">
+               <div class="label">File</div>
+               <div class="file-box" style="margin-top:8px">
+                  <% if (assignment && assignment.FileName) { %>
+                     <div class="file-name"><i class="fa-regular fa-file-pdf"
+                           style="color:#e53935;margin-right:8px"></i>
+                        <%= assignment.FileName %>
+                     </div>
+                     <div class="file-meta">Size: <%= assignment.FileSize ? (Math.round(assignment.FileSize/1024)
+                           + ' KB' ) : '—' %>
+                     </div>
+                     <div style="margin-top:12px">
+                        <a href="/download/<%= assignment._id %>" class="btn btn-primary" download
+                           style="width:100%;justify-content:center">
+                           <i class="fa-solid fa-download"></i> Download File
+                        </a>
+                     </div>
+                     <% } else { %>
+                        <div class="file-meta">No file attached.</div>
+                        <% } %>
+               </div>
+
+               <div style="margin-top:18px">
+                  <div class="label">Identifiers</div>
+                  <div class="value" style="font-family:monospace;font-size:13px;color:#4b5563;word-break:break-all">ID:
+                     <%= assignment && assignment._id ? assignment._id : '—' %>
+                  </div>
+                  <div class="value" style="font-family:monospace;font-size:13px;color:#4b5563;margin-top:6px">Student
+                     ID: <%= assignment && assignment.StudentId ? assignment.StudentId : '—' %>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <% if (message || error) { %>
+      <div class="toast <%= error ? 'error' : 'success' %>" id="toast">
+         <i class="fa-solid fa-<%= error ? 'circle-xmark' : 'circle-check' %>"></i>
+         <div>
+            <%= message || error %>
+         </div>
+      </div>
+
+      <script>
+         setTimeout(() => {
+            const t = document.getElementById('toast');
+            if (!t) return;
+            t.style.opacity = '0';
+            t.style.transition = 'opacity 350ms ease';
+            setTimeout(() => t.remove(), 450);
+         }, 4500);
+      </script>
+      <% } %>
+</body>
+
+</html>

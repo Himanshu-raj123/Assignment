@@ -1,12 +1,11 @@
 /* Page styling */
 body {
    font-family: Arial, sans-serif;
-   background: #f4f6fa;
-   padding: 0;
+   background: #f4f6fa; 
    margin: 0;
+   padding-top: 80px;
    align-items: center;
    justify-content: center;
-   height: 100vh;
 }
 
 #header {
@@ -84,7 +83,7 @@ body {
 h1{
    text-align: center;
    color: #4b3b8f;
-   margin-top: 20px;
+   /* margin-top: 100px; */
 }
 
 
