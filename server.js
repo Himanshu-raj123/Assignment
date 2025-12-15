@@ -3,6 +3,8 @@ const Assignment = require('./models/assignment');
 const path = require('path');
 const app = express();
 const port = 3000;
+const dotenv = require('dotenv');
+dotenv.config();
 
 //Imported routes
 const { connectMongoDB } = require('./connection');
@@ -21,7 +23,9 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
 //CONNECTION TO MONGODB
-connectMongoDB("mongodb://127.0.0.1:27017/AdminAssignment")
+
+const uri = "mongodb+srv://himanshu1242be23:Atlas_5002@cluster0.g4ydm.mongodb.net/?appName=Cluster0";
+connectMongoDB(uri)
 .then(()=>console.log("mongoDB connected"))
 .catch(()=>console.log("Error in mongoDB connection"));
 
@@ -42,6 +46,6 @@ app.get("/download/:id", async (req, res) => {
    res.download(filePath);  // THIS triggers download
 });
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
