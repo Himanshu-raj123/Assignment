@@ -2,8 +2,9 @@ const { error } = require('console');
 const Assignment = require('../models/assignment');
 const fs = require('fs');
 const path = require('path');
+const users = require('../models/users');
 
-async function findAssignment(studentid){
+async function findAssignment(studentid) {
    return await Assignment.find({ StudentId: studentid });
 }
 async function calculateStatusCount(assignments) {
@@ -25,7 +26,7 @@ async function dashboardHandler(req, res) {
    const user = req.user;
    const assignments = await findAssignment(user.id);
    const statusCount = await calculateStatusCount(assignments);
-   res.render('user/userDashboard', { message: `Welcome to User Dashboard ${user.name}`, assignments: assignments, statusCount:statusCount});
+   res.render('user/userDashboard', { message: `Welcome to User Dashboard ${user.name}`, assignments: assignments, statusCount: statusCount });
 }
 async function getallAssignments(req, res) {
    const statusFilter = (req.query.status || '').toString().trim();
@@ -111,7 +112,7 @@ async function getThisAssignments(req, res) {
 }
 async function profileHandeller(req, res) {
    res.render('user/userProfile', { user: req.user });
-}  
+}
 async function getUploadAssignment(req, res) {
    res.render('user/uploadAssignment', { user: req.user, error: "", message: "" });
 }
@@ -179,5 +180,80 @@ async function handleuploadAssignment(req, res) {
       });
    }
 }
+async function getSubmitAssignment(req, res) {
+   const assignmentId = req.params.id;
+   try {
+      const assignment = await Assignment.findOne({ _id: assignmentId, StudentId: req.user.id });
+      if (!assignment) {
+         return res.status(404).render('user/assignmentDetail', {
+            user: req.user,
+            assignment: null,
+            error: 'Assignment not found',
+            message: ''
+         });
+      }
+      res.render('user/submitForm', {
+         user: req.user,
+         assignment: assignment,
+         error: '',
+         message: '',
+         professors: await users.find({ Role: 'Professor' })
+      });
+   } catch (err) {
+      console.error('Get submit assignment error:', err);
+      res.status(500).render('user/assignmentDetail', {
+         user: req.user,
+         assignment: null,
+         error: 'Server error. Please try again later.',
+         message: ''
+      });
+   }
+}
+async function handleSubmitAssignment(req, res) {
+   const assignmentId = req.params.id;
+   try {
+      const assignment = await Assignment.findOne({ _id: assignmentId, StudentId: req.user.id });
+      if (!assignment) {
+         return res.status(404).render('user/assignmentDetail', {
+            user: req.user,
+            assignment: null,
+            error: 'Assignment not found',
+            message: ''
+         });
+      }
+      assignment.Status = 'submitted';
+      assignment.SubmittedAt = new Date();
 
-module.exports = { dashboardHandler, getallAssignments, profileHandeller, getUploadAssignment, handleuploadAssignment,getThisAssignments };
+      reviewer = await users.findById(req.body.reviewer);
+      if (!reviewer || reviewer.Role !== 'Professor') {
+         return res.render('user/submitForm', {
+            user: req.user,
+            assignment: assignment,
+            error: 'Invalid reviewer selected.',
+            message: '',
+            professors: await users.find({ Role: 'Professor' })
+         });
+      }
+      
+      assignment.Reviewer = reviewer.Name;
+      if (!reviewer.Assignments.includes(assignment._id)) {
+         reviewer.Assignments.push(assignment._id);
+      }
+
+      await reviewer.save();
+      await assignment.save();
+      res.redirect('/user/assignments');
+   } catch (err) {
+      console.error('Submit assignment error:', err);
+      res.status(500).render('user/assignmentDetail', {
+         user: req.user,
+         assignment: null,
+         error: 'Server error. Please try again later.',
+         message: ''
+      });
+   }
+}
+async function profileHandeller(req, res) {
+   res.render('user/profile', { user: await users.findById(req.user.id).populate('Department') });
+}
+module.exports = { dashboardHandler, getallAssignments, profileHandeller, getUploadAssignment, handleuploadAssignment, getThisAssignments, handleSubmitAssignment, getSubmitAssignment,profileHandeller };
