@@ -1,18 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
+   <title>AssignPro | Assignment Approval System</title>
+   
+   <!-- Google Fonts -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   
+   <!-- Existing Stylesheet -->
    <link rel="stylesheet" href="/index.css">
 </head>
-
 <body>
-   <div>
-      <a href="/common/login"><button>Login</button></a>
-      <a href="/admin/signup"><button>Signup</button></a>
-   </div>
-</body>
 
+   <!-- Navigation Bar -->
+   <header class="navbar">
+      <div class="container nav-container">
+         <div class="logo">
+           <span class="logo-icon">📚</span> AssignPro
+         </div>
+         <nav class="nav-links">
+            <a href="/common/login" class="nav-link">Login</a>
+            <a href="/admin/signup" class="nav-link btn btn-primary">Sign Up</a>
+         </nav>
+      </div>
+   </header>
+
+   <!-- Hero Section -->
+   <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="container hero-container">
+         <div class="hero-content">
+            <h1 class="hero-title">Simplify Your Assignment Approvals</h1>
+            <p class="hero-subtitle">
+               A seamless, modern, and highly secure platform tailored for students and educators. Manage, submit, and review coursework with complete ease.
+            </p>
+            <div class="hero-buttons">
+               <a href="/admin/signup" class="btn btn-primary btn-large">Get Started Now</a>
+               <a href="/common/login" class="btn btn-secondary btn-large">Login to Dashboard</a>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <!-- Features Section -->
+   <section class="features">
+      <div class="container">
+         <div class="section-header">
+            <h2 class="section-title">Why Choose Us?</h2>
+            <p class="section-description">We combine robust back-end systems with beautiful design metrics to give you the best experience possible.</p>
+         </div>
+         
+         <div class="features-grid">
+            <div class="feature-card">
+               <div class="feature-icon-wrapper">🚀</div>
+               <h3 class="feature-title">Lightning Fast</h3>
+               <p class="feature-text">Optimized infrastructure means instant uploads and reviews, keeping you focused exactly where you need to be.</p>
+            </div>
+            <div class="feature-card">
+               <div class="feature-icon-wrapper">🔒</div>
+               <h3 class="feature-title">Bank-Grade Security</h3>
+               <p class="feature-text">Your coursework is private. State of the art encryptions and token-based authentication keep your files completely safe.</p>
+            </div>
+            <div class="feature-card">
+               <div class="feature-icon-wrapper">📊</div>
+               <h3 class="feature-title">Centralized Dashboard</h3>
+               <p class="feature-text">Stop tracking emails. Enjoy real-time tracking, deadline monitoring, and clear feedback loops in one simple UI.</p>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <!-- Footer -->
+   <footer class="footer">
+      <div class="container footer-container">
+         <div class="footer-brand">
+            <div class="logo logo-white">
+               <span class="logo-icon">📚</span> AssignPro
+            </div>
+            <p class="footer-desc">Empowering education and streamlining assignments through cutting-edge technology.</p>
+         </div>
+         <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+               <li><a href="/common/login">Dashboard Login</a></li>
+               <li><a href="/admin/signup">Register Account</a></li>
+               <li><a href="#">Support API</a></li>
+            </ul>
+         </div>
+      </div>
+      <div class="footer-bottom">
+         <p>&copy; 2026 AssignPro. All rights reserved.</p>
+      </div>
+   </footer>
+
+</body>
 </html>

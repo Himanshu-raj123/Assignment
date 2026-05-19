@@ -4,8 +4,8 @@ const users = require('../models/users')
 const departments = require('../models/department')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { all, search } = require('../routes/admin')
 const user = require('../models/users')
+
 
 async function AdminDashboardStatsCount() {
    const departmentCount = await departments.countDocuments();
@@ -35,8 +35,21 @@ async function getSignup(req, res) {
 async function handleSignup(req, res) {
    const { name, email, password } = req.body;
 
+   // Basic field check
    if (!name || !email || !password) {
       return res.render('signup', { error: "All fields are required", message: "" });
+   }
+
+   // Email format validation
+   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+   if (!emailRegex.test(email)) {
+      return res.render('signup', { error: "Please enter a valid email address", message: "" });
+   }
+
+   // Password requirements: min 8 chars, at least one number
+   const passwordRegex = /^(?=.*\d).{8,}$/;
+   if (!passwordRegex.test(password)) {
+      return res.render('signup', { error: "Password must be at least 8 characters and contain at least one number", message: "" });
    }
 
    try {
@@ -44,7 +57,6 @@ async function handleSignup(req, res) {
       await admins.create({ Name: name, Email: email, Password: hashedPassword, Role: "Admin" });
       res.status(201).render('login', { error: "", message: "Signup successful, please login" });
    }
-
    catch (err) {
       if (err.code === 11000) {
          // Duplicate key error
@@ -65,9 +77,11 @@ async function getContact(req, res) {
    res.render('admin/contact', { user: req.user });
 }
 async function getDashboard(req, res) {
-   res.render('admin/admindashboard',{
-      error: "",
-      message: "Welcome to Admin Dashboard",
+   const flashMessage = req.query.message ? req.query.message : "Welcome to Admin Dashboard";
+   const flashError = req.query.error ? req.query.error : "";
+   res.render('admin/admindashboard', {
+      error: flashError,
+      message: flashMessage,
       data: await AdminDashboardStatsCount(),
    })
 }
@@ -88,7 +102,8 @@ async function handleCreateDepartment(req, res) {
 
    try {
       await departments.create({ Name, Type, Address })
-      return res.render('admin/admindashboard', { error: "", message: "Department created successfully", data: await AdminDashboardStatsCount() });
+      const msg = encodeURIComponent('Department created successfully');
+      return res.redirect(`/admin/dashboard?message=${msg}`);
    } catch (err) {
       return res.render('admin/createDepartment', { error: "Server Error", message: "Please Try Again" });
    }
@@ -154,14 +169,14 @@ async function handleCreateUser(req, res) {
       }
 
       const existingUser = await users.findOne({ Email: Email });
-
       if (existingUser) {
          return res.render('admin/createUser', { departments: await departments.find({}) || [], error: "User with this email already exists", message: "" })
       }
       const newUser = new users({ Name, Email, Password: await bcrypt.hash(Password, 10), Phone, Role, Department });
       await newUser.save();
 
-      res.render('admin/createUser', { departments: await departments.find({}) || [], error: "", message: "User created successfully" })
+      const msg = encodeURIComponent('User created successfully');
+      return res.redirect(`/admin/dashboard?message=${msg}`);
 
    } catch (err) {
       res.render('admin/createUser', { departments: await departments.find({}) || [], error: "Internal Server Error", message: "" })
@@ -177,7 +192,6 @@ async function getDepartments(req, res) {
       const limit = 10;
 
       let pipeline = [];
-
       if (search !== "" && filter !== "") {
          pipeline.push({
             $match: { [filter]: { $regex: search, $options: "i" } }
@@ -218,7 +232,7 @@ async function getDepartments(req, res) {
       });
 
    } catch (err) {
-         res.render("admin/AllDepartment", {
+      res.render("admin/AllDepartment", {
          departments: [],
          error: "Server Error",
          message: "",
@@ -279,7 +293,7 @@ async function getUsers(req, res) {
       });
 
    } catch (err) {
-         res.render("admin/AllUsers", {
+      res.render("admin/AllUsers", {
          users: [],
          error: "Server Error",
          message: "",
@@ -364,6 +378,6 @@ async function deleteUser(req, res) {
 module.exports = {
    handleSignup, handleLogout,
    getSignup, getDashboard, getCreateDepartment, handleCreateDepartment,
-   getDepartments, editDepartment, updateDepartment, deleteDepartment, getCreateUser, handleCreateUser, getUsers, checkUsersInDepartment, editUser, updateUser, deleteUser,getContact,getAbout,
+   getDepartments, editDepartment, updateDepartment, deleteDepartment, getCreateUser, handleCreateUser, getUsers, checkUsersInDepartment, editUser, updateUser, deleteUser, getContact, getAbout,
    // filteredSearch,
 } 

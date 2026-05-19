@@ -12,28 +12,42 @@ router.get('/login',checkLogin, (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-   const { email, role, password } = req.body;
+   try {
+      const { email, role, password } = req.body;
 
-   let user;
-   if (role === "Admin") {
-      user = await Admin.findOne({ Email: email });
-   } else {
-      user = await User.findOne({ Email: email});
+      let user;
+      if (role === "Admin") {
+         user = await Admin.findOne({ Email: email });
+      } else {
+         user = await User.findOne({ Email: email});
+         if (user && user.Role !== role) {
+            return res.status(401).render('login', { error: `Account registered as ${user.Role}, but ${role} was selected.`, message: "" });
+         }
+      }
+
+      if (!user) {
+         return res.status(401).render('login', { error: "Invalid email or role.", message: "" });
+      }
+
+      const isMatch = await bcrypt.compare(password, user.Password);
+      if (!isMatch) {
+         return res.status(401).render('login', { error: "Incorrect password.", message: "" });
+      }
+
+      const actualRole = role === "Admin" ? "Admin" : user.Role;
+      const token = jwt.sign({ id: user._id, email: user.Email, role: actualRole, name: user.Name}, "HEllODEVELOPER", { expiresIn: '1h' });
+
+      res.cookie('jwt', token, { httpOnly: true, maxAge: 60*60*1000 });
+      
+      if (role === "Admin") {
+         return res.redirect('/admin/dashboard');
+      } else {
+         return res.redirect('/user/dashboard');
+      }
+   } catch (error) {
+      console.error(error);
+      return res.status(500).render('login', { error: "Internal Server Error. Please try again.", message: "" });
    }
-
-   if (!user) {
-      return res.render('login', { message: "", error: "Invalid email or role." });
-   }
-
-   const isMatch = await bcrypt.compare(password, user.Password);
-   if (!isMatch) {
-      return res.render('login', { message: "", error: "Incorrect password." });
-   }
-
-   const token = jwt.sign({ id: user._id, email: user.Email, role: role, name: user.Name}, "HEllODEVELOPER", { expiresIn: '1h' });
-
-   res.cookie('jwt', token, { httpOnly: true, maxAge: 60*60*1000 });
-   return res.redirect(`/${role.toLowerCase()}/dashboard`);
 });
 
 module.exports = router;

@@ -7,24 +7,38 @@
    <title>createDepartment</title>
    <link rel="stylesheet" href="/createDepartment.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="/dashboard.css">
 </head>
 
 <body>
-   <div id="header">
-      <a href="/admin/dashboard">
-         <i class="fa-solid fa-house"></i>
-         <h1>Admin-Pannel</h1>
-      </a>
-
-      <div id="part2">
-         <a href="/admin/about">About</a>
-         <a href="/admin/contact">Contact</a>
-         <a href="/admin/logout"><button>Logout</button></a>
+<div class="dashboard-container">
+   <aside class="sidebar">
+      <div class="sidebar-header">
+         <i class="fa-solid fa-cube"></i>
+         <h2>Admin Panel</h2>
       </div>
-   </div>
-   <u>
-      <h1>Create New Department</h1>
-   </u>
+      <nav class="sidebar-nav">
+         <a href="/admin/dashboard" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+         <a href="/admin/Departments/1" class="nav-item"><i class="fa-solid fa-building"></i> Departments</a>
+         <a href="/admin/createDepartment" class="nav-item active"><i class="fa-solid fa-plus-square"></i> Add Dept</a>
+         <a href="/admin/allUsers/1" class="nav-item"><i class="fa-solid fa-users"></i> Users</a>
+         <a href="/admin/createUser" class="nav-item"><i class="fa-solid fa-user-plus"></i> Add User</a>
+            <a href="/user/community" class="nav-item"><i class="fa-solid fa-earth-americas"></i> Community Hub</a>
+      </nav>
+   </aside>
+   <main class="main-content">
+      <header class="topbar">
+         <div class="welcome-text">
+            <h1>Create Department</h1>
+            <p>Add a new department.</p>
+         </div>
+         <div class="topbar-actions">
+            <a href="/admin/about" class="action-link">About</a>
+            <a href="/admin/contact" class="action-link">Contact</a>
+            <a href="/admin/logout" class="btn-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+         </div>
+      </header>
+      <section class="content-body" style="background: var(--card-glass); padding: 2rem; border-radius: 12px; margin-top: 1rem; border: 1px solid var(--card-border);">
 
    <form action="/admin/createDepartment" method="POST">
       <label for="deptName">Department Name:</label>
@@ -50,6 +64,9 @@
                   <button type="submit">Create Department</button>
    </form>
 
+      </section>
+   </main>
+</div>
 </body>
 
 </html>

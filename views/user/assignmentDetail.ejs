@@ -8,21 +8,36 @@
    <link rel="stylesheet" href="/assignmentDetail.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<link rel="stylesheet" href="/userdashboard.css">
 </head>
 
 <body>
-   <div id="header">
-      <a href="/user/dashboard">
-         <i class="fa-solid fa-house"></i>
-         <h1>User Panel</h1>
-      </a>
-      <div id="part2">
-         <a href="/user/dashboard">Dashboard</a>
-         <a href="/user/about">About</a>
-         <a href="/user/contact">Contact</a>
-         <a href="/admin/logout"><button>Logout</button></a>
+<div class="dashboard-container">
+   <aside class="sidebar">
+      <div class="sidebar-header">
+         <i class="fa-solid fa-graduation-cap"></i>
+         <h2>User Profile</h2>
       </div>
-   </div>
+      <nav class="sidebar-nav">
+         <a href="/user/dashboard" class="nav-item"><i class="fa-solid fa-house-chimney"></i> Dashboard</a>
+         <a href="/user/assignments" class="nav-item"><i class="fa-solid fa-book-open"></i> Assignments</a>
+         <a href="/user/profile" class="nav-item"><i class="fa-solid fa-user"></i> Profile</a>
+         <a href="/user/uploadAssignment" class="nav-item"><i class="fa-solid fa-upload"></i> Upload</a>
+      </nav>
+   </aside>
+   <main class="main-content">
+      <header class="topbar">
+         <div class="welcome-text">
+            <h1>Assignment Details</h1>
+            <p>View properties of the assignment.</p>
+         </div>
+         <div class="topbar-actions">
+            <a href="/user/about" class="action-link">About</a>
+            <a href="/user/contact" class="action-link">Contact</a>
+            <a href="/user/logout" class="btn-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+         </div>
+      </header>
+      <section class="content-body" style="background: var(--card-glass); padding: 2rem; border-radius: 12px; margin-top: 1rem; border: 1px solid var(--card-border);">
    <div class="card">
       <div class="top">
          <div class="title">
@@ -94,6 +109,13 @@
                   </div>
                </div>
 
+               <div class="field">
+                  <div class="label">Remarks</div>
+                  <div class="value" style="white-space: pre-wrap;">
+                     <%= assignment && assignment.Remarks ? assignment.Remarks : 'No remarks recorded yet.' %>
+                  </div>
+               </div>
+
                <div class="field" style="display:flex;gap:12px;flex-wrap:wrap">
                   <div>
                      <div class="label">Submitted At</div>
@@ -159,6 +181,27 @@
             </div>
          </div>
       </div>
+
+      <% if ((user.role === 'Professor' || user.role === 'HOD') && assignment && assignment.Reviewer === user.name && (assignment.Status === 'submitted' || assignment.Status === 'reviewed' || assignment.Status === 'pending')) { %>
+      <div style="margin-top:24px; padding-top:20px; border-top:1px solid #eef2ff;">
+         <h2 style="color:var(--primary); margin-bottom:16px;">Evaluate Assignment</h2>
+         <form action="/user/reviewAssignment/<%= assignment._id %>" method="POST" style="display:flex; flex-direction:column; gap:16px;">
+            <div class="field" style="margin-bottom:0;">
+               <label>Add Remarks / Feedback</label>
+               <textarea name="remarks" rows="3" style="width:100%; padding:10px; border-radius:8px; border:1px solid #eef2ff; resize:vertical; font-family:inherit;" placeholder="Add constructive feedback or explain your decision..."></textarea>
+            </div>
+            <div style="display:flex; gap:16px; align-items:flex-end; flex-wrap:wrap;">
+               <button type="submit" name="action" value="approve" class="btn btn-primary" style="background:#10b981; border:none; color:white;"><i class="fa-solid fa-check"></i> Approve</button>
+               <button type="submit" name="action" value="reject" class="btn btn-primary" style="background:#ef4444; border:none; color:white;"><i class="fa-solid fa-times"></i> Reject</button>
+            </div>
+         </form>
+      </div>
+      <% } else if ((user.role === 'Professor' || user.role === 'HOD') && assignment && assignment.Reviewer === user.name) { %>
+      <div style="margin-top:24px; padding-top:20px; border-top:1px solid #eef2ff;">
+         <p class="note">You have already evaluated this assignment. Current Status: <strong style="text-transform: uppercase;"><%= assignment.Status %></strong></p>
+      </div>
+      <% } %>
+
    </div>
 
    <% if (message || error) { %>
@@ -179,6 +222,9 @@
          }, 4500);
       </script>
       <% } %>
+      </section>
+   </main>
+</div>
 </body>
 
 </html>

@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const checkAuth = (req, res, next) => {
   const token = req.cookies.jwt;
   if (!token) {
-    return res.render('login',{err})
+    return res.redirect('/common/login');
   }
   jwt.verify(token, "HEllODEVELOPER", (err, decodedToken) => {
     if (err) {

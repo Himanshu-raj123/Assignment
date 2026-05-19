@@ -14,7 +14,8 @@ body {
    top: 0;
    left: 0;
    display: flex;
-   justify-content: space-between;   /* Left and right aligned */
+   justify-content: space-between;
+   /* Left and right aligned */
    align-items: center;
    padding: 15px 30px;
    background: #f4f6ff;
@@ -24,7 +25,7 @@ body {
 }
 
 /* LEFT SIDE (logo + heading) */
-#header > a {
+#header>a {
    display: flex;
    align-items: center;
    gap: 12px;
@@ -83,7 +84,7 @@ body {
    background: darkred;
 }
 
-h1{
+h1 {
    text-align: center;
    color: #4b3b8f;
    margin-top: 20px;
@@ -93,7 +94,8 @@ h1{
 h1 {
    text-align: center;
    margin-top: 20px;
-   color: #4b3b8f;   /* Updated */
+   color: #4b3b8f;
+   /* Updated */
    font-size: 32px;
 }
 
@@ -101,9 +103,9 @@ h1 {
    width: 90%;
    margin: 20px auto;
    padding: 20px;
-   background: #ffffff;
+   background: #8bbbc0;
    border-radius: 10px;
-   box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
    display: flex;
    align-items: center;
    justify-content: center;
@@ -115,7 +117,8 @@ h1 {
 #filter label {
    font-size: 16px;
    font-weight: 600;
-   color: #4b3b8f;   /* Updated */
+   color: #4b3b8f;
+   /* Updated */
 }
 
 /* INPUT + SELECT STYLE */
@@ -131,14 +134,16 @@ h1 {
 
 #filter input:focus,
 #filter select:focus {
-   border-color: #4b3b8f; /* Updated */
+   border-color: #4b3b8f;
+   /* Updated */
    box-shadow: 0px 0px 5px rgba(75, 59, 143, 0.5);
 }
 
 /* BUTTON STYLE */
 #filter button {
    padding: 10px 18px;
-   background: #4b3b8f; /* Updated */
+   background: #3232cf;
+   /* Updated */
    color: white;
    border: none;
    border-radius: 6px;
@@ -149,7 +154,8 @@ h1 {
 }
 
 #filter button:hover {
-   background: #362d6d; /* Updated */
+   background: #362d6d;
+   /* Updated */
    transform: translateY(-2px);
 }
 
@@ -163,9 +169,9 @@ h1 {
    max-width: 1100px;
    margin: 18px auto;
    padding: 14px 16px;
-   background: #ffffff;
+   background:white;
    border-radius: 10px;
-   box-shadow: 0 6px 18px rgba(75,59,143,0.06);
+   box-shadow: 0 6px 18px rgba(75, 59, 143, 0.06);
    display: flex;
    align-items: center;
    gap: 12px;
@@ -191,7 +197,7 @@ form[action^="/admin/Departments"] input#search {
 
 form[action^="/admin/Departments"] input#search:focus {
    border-color: #4b3b8f;
-   box-shadow: 0 0 6px rgba(75,59,143,0.14);
+   box-shadow: 0 0 6px rgba(75, 59, 143, 0.14);
 }
 
 form[action^="/admin/Departments"] select#filterSelect {
@@ -211,7 +217,7 @@ form[action^="/admin/Departments"] button[type="submit"] {
    border: none;
    cursor: pointer;
    font-weight: 700;
-   box-shadow: 0 3px 10px rgba(75,59,143,0.12);
+   box-shadow: 0 3px 10px rgba(75, 59, 143, 0.12);
 }
 
 form[action^="/admin/Departments"] button[type="submit"]:hover {
@@ -244,7 +250,8 @@ form[action^="/admin/Departments"] button[type="submit"]:hover {
 button {
    padding: 10px 18px;
    border: none;
-   background: #4b3b8f;  /* Updated */
+   background: #4b3b8f;
+   /* Updated */
    color: white;
    border-radius: 6px;
    cursor: pointer;
@@ -254,7 +261,8 @@ button {
 }
 
 button:hover {
-   background: #362d6d; /* Updated */
+   background: #362d6d;
+   /* Updated */
    transform: translateY(-2px);
 }
 
@@ -266,13 +274,14 @@ table {
    margin: 20px auto;
    border-collapse: collapse;
    background: white;
-   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
    border-radius: 10px;
    overflow: hidden;
 }
 
 th {
-   background: #4b3b8f; /* Updated */
+   background: #4b3b8f;
+   /* Updated */
    color: white;
    padding: 12px;
    font-size: 16px;
@@ -290,7 +299,8 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-   background: #ece9fa; /* subtle purple tint */
+   background: #ece9fa;
+   /* subtle purple tint */
 }
 
 /* Action Buttons */
@@ -309,11 +319,13 @@ td button {
 .pagination button {
    padding: 8px 15px;
    margin: 0 10px;
-   background: #4b3b8f; /* Updated */
+   background: #4b3b8f;
+   /* Updated */
 }
 
 .pagination button:hover {
-   background: #362d6d; /* Updated */
+   background: #362d6d;
+   /* Updated */
 }
 
 /* -------------------------
@@ -323,16 +335,24 @@ td button {
    position: fixed;
    top: 20px;
    right: 20px;
-   background: #4b3b8f; /* Updated */
+   background: #4b3b8f;
+   /* Updated */
    color: white;
    padding: 14px 22px;
    border-radius: 8px;
    font-size: 16px;
-   box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
    animation: fadeIn 0.4s ease;
 }
 
 @keyframes fadeIn {
-   from { opacity: 0; transform: translateY(-10px); }
-   to { opacity: 1; transform: translateY(0); }
+   from {
+      opacity: 0;
+      transform: translateY(-10px);
+   }
+
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
 }

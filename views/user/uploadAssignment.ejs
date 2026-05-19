@@ -8,22 +8,40 @@
    <link rel="stylesheet" href="/uploadAssinment.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
    
+<link rel="stylesheet" href="/userdashboard.css">
 </head>
 
 <body>
-      <div id="header">
-
-      <a href="/user/dashboard">
-         <i class="fa-solid fa-house"></i>
-         <h1>User-Pannel</h1>
-      </a>
-
-      <div id="part2">
-         <a href="/user/about">About</a>
-         <a href="/user/contact">Contact</a>
-         <a href="/admin/logout"><button>Logout</button></a>
+<div class="dashboard-container">
+   <aside class="sidebar">
+      <div class="sidebar-header">
+         <i class="fa-solid fa-graduation-cap"></i>
+         <h2>User Profile</h2>
       </div>
-   </div>
+      <nav class="sidebar-nav">
+         <a href="/user/dashboard" class="nav-item"><i class="fa-solid fa-house-chimney"></i> Dashboard</a>
+         <a href="/user/assignments" class="nav-item"><i class="fa-solid fa-book-open"></i> Assignments</a>
+            <% if (user && user.Role === 'Professor' || user && user.role === 'Professor') { %>
+            <a href="/user/review-portal" class="nav-item"><i class="fa-solid fa-list-check"></i> Review Portal</a>
+            <% } %>
+            <a href="/user/community" class="nav-item"><i class="fa-solid fa-earth-americas"></i> Community Hub</a>
+         <a href="/user/profile" class="nav-item"><i class="fa-solid fa-user"></i> Profile</a>
+         <a href="/user/uploadAssignment" class="nav-item active"><i class="fa-solid fa-upload"></i> Upload</a>
+      </nav>
+   </aside>
+   <main class="main-content">
+      <header class="topbar">
+         <div class="welcome-text">
+            <h1>Upload Assignment</h1>
+            <p>Submit your coursework.</p>
+         </div>
+         <div class="topbar-actions">
+            <a href="/user/about" class="action-link">About</a>
+            <a href="/user/contact" class="action-link">Contact</a>
+            <a href="/user/logout" class="btn-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+         </div>
+      </header>
+      <section class="content-body" style="background: var(--card-glass); padding: 2rem; border-radius: 12px; margin-top: 1rem; border: 1px solid var(--card-border);">
 
    <form class="upload-form" action="/user/uploadAssignment" method="post" enctype="multipart/form-data">
       <h1>Upload Assignment</h1>
@@ -46,6 +64,9 @@
       </select>
       <button type="submit">Upload</button>
    </form>
+      </section>
+   </main>
+</div>
 </body>
 
 <% if (message !== "" || error!=="") { %>

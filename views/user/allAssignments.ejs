@@ -8,23 +8,40 @@
    <link rel="stylesheet" href="/allAssignments.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<link rel="stylesheet" href="/userdashboard.css">
 </head>
 
 <body>
-
-   <!-- Header -->
-   <div id="header">
-      <a href="/user/dashboard">
-         <i class="fa-solid fa-house"></i>
-         <h1>User Panel</h1>
-      </a>
-      <div id="part2">
-         <a href="/user/dashboard">Dashboard</a>
-         <a href="/user/about">About</a>
-         <a href="/user/contact">Contact</a>
-         <a href="/admin/logout"><button>Logout</button></a>
+<div class="dashboard-container">
+   <!-- Sidebar -->
+   <aside class="sidebar">
+      <div class="sidebar-header">
+         <i class="fa-solid fa-graduation-cap"></i>
+         <h2>User Profile</h2>
       </div>
-   </div>
+      <nav class="sidebar-nav">
+         <a href="/user/dashboard" class="nav-item"><i class="fa-solid fa-house-chimney"></i> Dashboard</a>
+         <a href="/user/assignments" class="nav-item active"><i class="fa-solid fa-book-open"></i> Assignments</a>
+         <a href="/user/profile" class="nav-item"><i class="fa-solid fa-user"></i> Profile</a>
+         <% if (user && user.role === 'Student') { %>
+         <a href="/user/uploadAssignment" class="nav-item"><i class="fa-solid fa-upload"></i> Upload</a>
+         <% } %>
+      </nav>
+   </aside>
+   <!-- Main Content -->
+   <main class="main-content">
+      <header class="topbar">
+         <div class="welcome-text">
+            <h1>My Assignments</h1>
+            <p>Track your coursework submissions.</p>
+         </div>
+         <div class="topbar-actions">
+            <a href="/user/about" class="action-link">About</a>
+            <a href="/user/contact" class="action-link">Contact</a>
+            <a href="/user/logout" class="btn-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+         </div>
+      </header>
+      <section class="content-body" style="background: var(--card-glass); padding: 2rem; border-radius: 12px; margin-top: 1rem; border: 1px solid var(--card-border);">
 
    <!-- Main Container -->
    <div class="container">
@@ -140,11 +157,13 @@
                                        <% } %>
                            </td>
                            <td>
+                              <% if (user && user.role === 'Student') { %>
                                <a href="/user/submitAssignment/<%= assignment._id %>" class="view-link" style="color: rgb(231, 11, 11);">
                                  Submit For Review <i class="fa-solid fa-paper-plane"></i>
                               </a>
                               <br>
                               <br>
+                              <% } %>
                               <a href="/user/assignment/<%= assignment._id %>" class="view-link">
                                  <i class="fa-solid fa-eye"></i> View
                               </a>
@@ -214,6 +233,9 @@
             });
          </script>
 
+      </section>
+   </main>
+</div>
 </body>
 
 </html>

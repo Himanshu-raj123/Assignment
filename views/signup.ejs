@@ -1,46 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Login</title>
+   <title>AssignPro | Admin Signup</title>
+   
+   <!-- Google Fonts -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+   
+   <!-- Signup Specific Styles -->
    <link rel="stylesheet" href="/signup.css">
 </head>
-
 <body>
+   <div class="auth-container">
+      <div class="auth-card">
+         
+         <div class="auth-image" style="background-image: url('https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+         </div>
+         
+         <!-- Form Side -->
+         <div class="auth-content">
+            <div class="auth-header">
+               <a href="/" class="logo"><span class="logo-icon">📚</span> AssignPro</a>
+               <h2>Register as Admin</h2>
+               <p>Create a new admin account to manage assignments.</p>
+            </div>
 
-   <div class="container">
-      <form action="/admin/signup" method="POST" class="login-box">
+            <form action="/admin/signup" method="POST" class="auth-form">
 
-         <h2>Signup Only For Admins</h2>
+               <div class="form-group">
+                  <label for="name">Full Name</label>
+                  <input id="name" type="text" name="name" placeholder="John Doe" required>
+               </div>
 
-         <label for="name">Name</label>
-         <input id="name" type="text" name="name" placeholder="Enter your name" required>
+               <div class="form-group">
+                  <label for="email">Email</label>
+                  <input id="email" type="email" name="email" placeholder="name@example.com" required pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" title="Please enter a valid email address">
+               </div>
 
-         <label for="email">Email</label>
-         <input id="email" type="email" name="email" placeholder="Enter your email" required>
+               <div class="form-group">
+                  <label for="password">Password</label>
+                  <input id="password" type="password" name="password" placeholder="Create a strong password" required pattern="^(?=.*\d).{8,}$" title="Password must be at least 8 characters and contain at least one number">
+                  <small>Password must be at least 8 characters and contain at least one number.</small>
+               </div>
 
-         <label for="password">Password</label>
-         <input id="password" type="password" name="password" placeholder="Enter your password" required>
+               <% if (typeof error !== 'undefined' && error) { %>
+                  <div class="alert alert-error"><%= error %></div>
+               <% } %>
 
-         <% if (error) { %>
-            <p class="error"><%= error %></p>
-         <% } %>
+               <% if (typeof message !== 'undefined' && message) { %>
+                  <div class="alert alert-success"><%= message %></div>
+               <% } %>
 
-         <% if (message) { %>
-            <p class="success"><%= message %></p>
-         <% } %>
+               <button type="submit" class="btn btn-primary btn-block">Create Account</button>
 
-         <button type="submit" class="btn">Login</button>
+            </form>
 
-         <p class="signup-text">Don't have an account?
-            <a href="/common/login">Login</a>
-         </p>
+            <div class="auth-footer">
+               <p>Already have an account? <a href="/common/login">Log In</a></p>
+            </div>
+         </div>
 
-      </form>
+      </div>
    </div>
-
 </body>
-
 </html>

@@ -1,170 +1,109 @@
-
-#header {
-   position: fixed;
-   top: 0;
-   left: 0;
-   display: flex;
-   justify-content: space-between;  
-   align-items: center;
-   padding: 15px 30px;
-   background: #f4f6ff;
-   border-bottom: 2px solid #ddd;
+/* FORM CARD */
+.upload-form {
    width: 100%;
-   box-sizing: border-box;
+   max-width: 500px;
+   background: var(--card-glass, rgba(255, 255, 255, 0.05));
+   backdrop-filter: blur(10px);
+   border: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
+   padding: 30px;
+   border-radius: 16px;
+   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+   color: var(--text-main, #f8fafc);
+   /* Removed old body centering to fix alignment; center the form gracefully here */
+   margin: 0 auto; 
 }
 
-/* LEFT SIDE (logo + heading) */
-#header > a {
-   display: flex;
-   align-items: center;
-   gap: 12px;
-   text-decoration: none;
-}
-
-/* Home Icon */
-#header i {
-   font-size: 28px;
-   color: #4b3b8f;
-}
-
-/* Heading */
-#header h1 {
-   margin: 0;
-   font-size: 26px;
-   font-weight: 700;
-   color: #4b3b8f;
-}
-
-/* RIGHT SIDE LINKS */
-#part2 {
-   display: flex;
-   align-items: center;
-   gap: 20px;
-}
-
-/* About + Contact links */
-#part2 a {
-   text-decoration: none;
-   font-size: 16px;
-   color: #4b3b8f;
+/* TITLE */
+.upload-form h1 {
+   margin-bottom: 24px;
+   text-align: center;
+   color: var(--text-main, #fff);
+   font-size: 1.8rem;
    font-weight: 600;
-   transition: 0.3s;
 }
 
-/* Hover effect */
-#part2 a:hover {
-   color: #362d6d;
+/* LABELS */
+.upload-form label {
+   display: block;
+   margin-bottom: 8px;
+   font-weight: 500;
+   color: var(--text-muted, #cbd5e1);
 }
 
-/* Logout Button */
-#part2 button {
-   padding: 8px 18px;
-   border: none;
-   background: crimson;
+/* INPUTS */
+.upload-form input,
+.upload-form textarea,
+.upload-form select {
+   width: 100%;
+   padding: 12px 16px;
+   margin-bottom: 20px;
+   border-radius: 10px;
+   border: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
+   background: rgba(0, 0, 0, 0.2);
+   color: #fff;
+   font-size: 15px;
+   transition: all 0.3s ease;
+}
+
+.upload-form textarea {
+   resize: vertical;
+}
+
+.upload-form input::file-selector-button {
+   background: var(--primary, #8b5cf6);
    color: white;
+   border: none;
+   padding: 8px 12px;
    border-radius: 6px;
    cursor: pointer;
-   font-size: 15px;
-   transition: 0.3s;
+   margin-right: 12px;
+   transition: background 0.3s ease;
 }
 
-#part2 button:hover {
-   background: darkred;
+.upload-form input::file-selector-button:hover {
+   background: var(--primary-dark, #7c3aed);
 }
 
-
-/* PUSH BODY CONTENT DOWN (IMPORTANT) */
-body {
-  padding-top: 90px; /* header height + spacing */
+/* Option colors inside select for dark mode */
+.upload-form select option {
+   background: #1e293b;
+   color: #fff;
 }
 
-* {
-         box-sizing: border-box;
-         font-family: Arial, sans-serif;
-      }
+/* FOCUS */
+.upload-form input:focus,
+.upload-form textarea:focus,
+.upload-form select:focus {
+   outline: none;
+   border-color: var(--primary, #8b5cf6);
+   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+   background: rgba(0, 0, 0, 0.3);
+}
 
-      body {
-         min-height: 100vh;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         background: #f3f5fa;
-         padding: 20px;
-      }
+/* BUTTON */
+.upload-form button {
+   width: 100%;
+   padding: 14px;
+   border: none;
+   border-radius: 10px;
+   background: var(--primary, #8b5cf6);
+   color: #ffffff;
+   font-size: 16px;
+   font-weight: 600;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   margin-top: 10px;
+}
 
-      /* FORM CARD */
-      .upload-form {
-         width: 100%;
-         max-width: 420px;
-         background: #ffffff;
-         padding: 30px;
-         border-radius: 12px;
-         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      }
+.upload-form button:hover {
+   background: var(--primary-dark, #7c3aed);
+   transform: translateY(-2px);
+   box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
 
-      /* TITLE */
-      .upload-form h1 {
-         margin-bottom: 20px;
-         text-align: center;
-         color: #4b3b8f;
-      }
-
-      /* LABELS */
-      .upload-form label {
-         display: block;
-         margin-bottom: 6px;
-         font-weight: 600;
-         color: #333;
-      }
-
-      /* INPUTS */
-      .upload-form input,
-      .upload-form textarea,
-      .upload-form select {
-         width: 100%;
-         padding: 10px 12px;
-         margin-bottom: 16px;
-         border-radius: 6px;
-         border: 1px solid #ccc;
-         font-size: 14px;
-         transition: border 0.2s, box-shadow 0.2s;
-      }
-
-      .upload-form textarea {
-         resize: vertical;
-      }
-
-      /* FOCUS */
-      .upload-form input:focus,
-      .upload-form textarea:focus,
-      .upload-form select:focus {
-         outline: none;
-         border-color: #4b3b8f;
-         box-shadow: 0 0 0 2px rgba(75, 59, 143, 0.15);
-      }
-
-      /* BUTTON */
-      .upload-form button {
-         width: 100%;
-         padding: 12px;
-         border: none;
-         border-radius: 8px;
-         background: #4b3b8f;
-         color: #ffffff;
-         font-size: 16px;
-         font-weight: 600;
-         cursor: pointer;
-         transition: background 0.25s ease, transform 0.2s ease;
-      }
-
-      .upload-form button:hover {
-         background: #362d6d;
-         transform: translateY(-2px);
-      }
-
-      /* MOBILE */
-      @media (max-width: 480px) {
-         .upload-form {
-            padding: 20px;
-         }
-      }
+/* MOBILE */
+@media (max-width: 480px) {
+   .upload-form {
+      padding: 24px 20px;
+   }
+}

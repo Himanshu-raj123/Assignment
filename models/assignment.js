@@ -44,6 +44,10 @@ const assignmentSchema = new mongoose.Schema(
     Reviewer: {
       type: String,
       default: "Not Appointed yet"
+    },
+    Remarks: {
+      type: String,
+      default: ""
     }
   },
   {

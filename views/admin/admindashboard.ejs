@@ -1,78 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Dashboard</title>
+   <title>Admin Dashboard</title>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
    <link rel="stylesheet" href="/dashboard.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
-
 <body>
-
-   <div id="header">
-
-      <a href="/admin/dashboard">
-         <i class="fa-solid fa-house"></i>
-         <h1>Admin-Pannel</h1>
-      </a>
-
-      <div id="part2">
-         <a href="/admin/about">About</a>
-         <a href="/admin/contact">Contact</a>
-         <a href="/admin/logout"><button>Logout</button></a>
-      </div>
-   </div>
-   <u style="color: white;">
-      <h1>Welcome Admin</h1>
-   </u>
-
-   <hr style="width: 90%">
-
-   <div id="main">
-      <div id="navigation">
-         <h2>Navigation</h2>
-         <a href="/admin/Departments/1"><button>Departments</button></a>
-         <a href="/admin/createDepartment"><button>Add Department</button></a>
-         <a href="/admin/allUsers/1"><button>Users</button></a>
-         <a href="/admin/createUser"><button>Add Users</button></a>
-      </div>
-      <div id="count">
-         <h2>Dashboard overview</h2>
-         <div id="count1">
-            <p>Total Departments: <%= data.departments %>
-            </p>
-            <p>Total Students: <%= data.students %></p>
-            <p>Total Professors: <%= data.professors %></p>
-            <p>Total HODs: <%= data.hods %></p>
+   <div class="dashboard-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+         <div class="sidebar-header">
+            <i class="fa-solid fa-cube"></i>
+            <h2>Admin Panel</h2>
          </div>
-      </div>
+         <nav class="sidebar-nav">
+            <a href="/admin/dashboard" class="nav-item active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+            <a href="/admin/Departments/1" class="nav-item"><i class="fa-solid fa-building"></i> Departments</a>
+            <a href="/admin/createDepartment" class="nav-item"><i class="fa-solid fa-plus-square"></i> Add Dept</a>
+            <a href="/admin/allUsers/1" class="nav-item"><i class="fa-solid fa-users"></i> Users</a>
+            <a href="/admin/createUser" class="nav-item"><i class="fa-solid fa-user-plus"></i> Add User</a>
+            <a href="/user/community" class="nav-item"><i class="fa-solid fa-earth-americas"></i> Community Hub</a>
+         </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+         <header class="topbar">
+            <div class="welcome-text">
+               <h1>Welcome, Admin</h1>
+               <p>Here's what's happening today.</p>
+            </div>
+            <div class="topbar-actions">
+               <a href="/admin/about" class="action-link">About</a>
+               <a href="/admin/contact" class="action-link">Contact</a>
+               <a href="/admin/logout" class="btn-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+            </div>
+         </header>
+
+         <section class="stats-grid">
+            <div class="stat-card">
+               <div class="stat-icon" style="background: rgba(74, 144, 226, 0.2); color: #4a90e2;">
+                  <i class="fa-solid fa-building"></i>
+               </div>
+               <div class="stat-details">
+                  <h3>Departments</h3>
+                  <p><%= data.departments %></p>
+               </div>
+            </div>
+            <div class="stat-card">
+               <div class="stat-icon" style="background: rgba(80, 227, 194, 0.2); color: #50e3c2;">
+                  <i class="fa-solid fa-user-graduate"></i>
+               </div>
+               <div class="stat-details">
+                  <h3>Students</h3>
+                  <p><%= data.students %></p>
+               </div>
+            </div>
+            <div class="stat-card">
+               <div class="stat-icon" style="background: rgba(245, 166, 35, 0.2); color: #f5a623;">
+                  <i class="fa-solid fa-chalkboard-user"></i>
+               </div>
+               <div class="stat-details">
+                  <h3>Professors</h3>
+                  <p><%= data.professors %></p>
+               </div>
+            </div>
+            <div class="stat-card">
+               <div class="stat-icon" style="background: rgba(208, 2, 27, 0.2); color: #d0021b;">
+                  <i class="fa-solid fa-user-tie"></i>
+               </div>
+               <div class="stat-details">
+                  <h3>HODs</h3>
+                  <p><%= data.hods %></p>
+               </div>
+            </div>
+         </section>
+      </main>
    </div>
-   <hr>
+
    <% if (message) { %>
-      <div id="toast" style="
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #28a745;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 6px;
-    font-size: 15px;
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
-">
+      <div id="toast" class="toast-message">
          <%= message %>
       </div>
-
       <script>
          setTimeout(() => {
-            document.getElementById('toast').style.display = "none";
+            const toast = document.getElementById('toast');
+            if (toast) {
+               toast.style.opacity = '0';
+               setTimeout(() => toast.remove(), 500);
+            }
          }, 3000);
       </script>
-      <% } %>
-      
+   <% } %>
 </body>
-
 </html>

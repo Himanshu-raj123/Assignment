@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { dashboardHandler, getallAssignments, profileHandeller, getUploadAssignment, handleuploadAssignment,getThisAssignments,handleSubmitAssignment,getSubmitAssignment} = require('../controllers/user');
+const { dashboardHandler, getallAssignments, profileHandeller, getUploadAssignment, handleuploadAssignment,getThisAssignments,handleSubmitAssignment,getSubmitAssignment, handleReviewAssignment} = require('../controllers/user');
 const checkAuth = require('../Auth/checkAuth');
 const upload = require('../config/multerConfig');
 
@@ -42,5 +42,11 @@ router.get('/contact',checkAuth,(req,res)=>{
 });
 router.get('/submitAssignment/:id',checkAuth,getSubmitAssignment);
 router.post('/submitAssignment/:id',checkAuth,handleSubmitAssignment);
+router.post('/reviewAssignment/:id', checkAuth, handleReviewAssignment);
+
+router.get('/logout', (req, res) => {
+   res.clearCookie('jwt');
+   res.redirect('/common/login');
+});
 
 module.exports = router;

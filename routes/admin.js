@@ -46,6 +46,5 @@ router.get('/editUser/:id',checkAuthorization,editUser)
 router.post('/updateUser/:id',checkAuthorization,updateUser)
 
 router.get('/deleteUser/:id',checkAuthorization,deleteUser)
-   
 
 module.exports = router;

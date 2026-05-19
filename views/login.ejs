@@ -4,45 +4,73 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Login</title>
-   <link rel="stylesheet" href="/login.css">
+   <title>AssignPro | Login</title>
+
+   <!-- Google Fonts -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+   <!-- Common Auth Styles -->
+   <link rel="stylesheet" href="/auth.css">
 </head>
 
 <body>
-   <form action="/common/login" method="POST">
-      <h2>Login to your account</h2>
+   <div class="auth-container">
+      <div class="auth-card">
 
-      <!-- Email -->
-      <label for="email">Email</label>
-      <input id="email" type="email" name="email" placeholder="Enter your email" required>
+         <div class="auth-header">
+            <a href="/" class="logo"><span class="logo-icon">📚</span> AssignPro</a>
+            <h2>Welcome Back</h2>
+            <p>Please enter your details to sign in.</p>
+         </div>
 
-      <!-- Password -->
-      <label for="password">Password</label>
-      <input id="password" type="password" name="password" placeholder="Enter your password" required>
+         <form action="/common/login" method="POST" class="auth-form">
 
-      <label for="role">Role</label>
-      <select id="role" name="role" required>
-         <option value="Admin">Admin</option>
-         <option value="User">User</option>
-      </select>
+            <div class="form-group">
+               <label for="email">Email</label>
+               <input id="email" type="email" name="email" placeholder="name@example.com" required>
+            </div>
 
-      <!-- Error Message -->
-      <% if (error) { %>
-         <p class="error"><%= error %></p>
-      <% } %>
+            <div class="form-group">
+               <label for="password">Password</label>
+               <input id="password" type="password" name="password" placeholder="••••••••" required>
+            </div>
 
-      <!-- Success Message -->
-      <% if (message) { %>
-         <p class="success"><%= message %></p>
-      <% } %>
+            <div class="form-group">
+               <label for="role">Role</label>
+               <div class="select-wrapper">
+                  <select id="role" name="role" required>
+                     <option value="Admin">Admin</option>
+                     <option value="Student">Student</option>
+                     <option value="Professor">Professor</option>
+                     <option value="HOD">HOD</option>
+                  </select>
+               </div>
+            </div>
 
-      <!-- Submit -->
-      <input type="submit" value="Login">
+            <% if (typeof error !=='undefined' && error) { %>
+               <div class="alert alert-error">
+                  <%= error %>
+               </div>
+               <% } %>
 
-      <p>Don't have an account?</p>
-      <a href="/admin/signup">Sign Up</a>
-   </form>
+                  <% if (typeof message !=='undefined' && message) { %>
+                     <div class="alert alert-success">
+                        <%= message %>
+                     </div>
+                     <% } %>
 
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+
+         </form>
+
+         <div class="auth-footer">
+            <p>Don't have an account? <a href="/admin/signup">Sign Up</a></p>
+         </div>
+
+      </div>
+   </div>
 </body>
 
 </html>
